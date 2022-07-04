@@ -1,6 +1,9 @@
 # URL: https://github.com/github/gitignore/blob/main/Unity.gitignore
 # Date of Retrieval: 06/29/2022
 
+.DS_Store
+
+
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -71,4 +74,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/* 
 
 
-.vscode/
+.vscode/ 
+env/ 
+.vsconfig
