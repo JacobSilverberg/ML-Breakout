@@ -42,7 +42,9 @@ public class GameManager : MonoBehaviour
     public int Level
     {
         get { return _level; }
-        set { _level = value; }
+        set { _level = value; 
+            levelText.text = "LEVEL: " + _level;
+        }
     }
 
     private int _balls;
@@ -50,7 +52,9 @@ public class GameManager : MonoBehaviour
     public int Balls
     {
         get { return _balls; }
-        set { _balls = value; }
+        set { _balls = value; 
+            ballsText.text = "BALLS: " + _balls;
+        }
     }
 
 
