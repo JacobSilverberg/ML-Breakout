@@ -14,11 +14,13 @@ public class Ball : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _renderer = GetComponent<Renderer>();
+        //add some delay between launch
         Invoke("Launch", 0.5f);
     }
 
     void Launch()
     {
+        //make the ball travel up initially
         _rigidbody.velocity = Vector3.up * _speed;
     }
 
