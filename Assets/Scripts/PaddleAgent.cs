@@ -9,7 +9,7 @@ using Unity.MLAgents.Sensors;
 public class PaddleAgent : Agent
 {
 
-    float moveSpeed = 2f;
+    float moveSpeed = 20f;
     float leftLimit = -33f;
     float rightLimit = 33f; 
 
@@ -29,7 +29,7 @@ public class PaddleAgent : Agent
     public override void OnActionReceived(ActionBuffers actions)
     {
         float moveX = actions.DiscreteActions[0];
-        Debug.Log(moveX);
+        //Debug.Log(moveX);
 
         // Move paddle right, left, or hold
         if (moveX == 1)
@@ -58,8 +58,10 @@ public class PaddleAgent : Agent
     // Agent Observation
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition); // This is the 'transform' localPosition of the agent object, the paddle
-        sensor.AddObservation(targetTransform.localPosition); // This is the localPosition of a target which is the ball
+        sensor.AddObservation(transform.localPosition.x);
+        sensor.AddObservation(targetTransform.localPosition.x);
+        //sensor.AddObservation(transform.localPosition); // This is the 'transform' localPosition of the agent object, the paddle
+        //sensor.AddObservation(targetTransform.localPosition); // This is the localPosition of a target which is the ball
  
     }
 
@@ -82,18 +84,33 @@ public class PaddleAgent : Agent
         
     }
 
+    float lastPositionDifference;
     private void FixedUpdate()
     {
-        
+        var curPositionDifference = Math.Abs(targetTransform.position.x - transform.position.x);
+
+        // Ball drops out of game
         if (targetTransform.transform.localPosition.y < -18f)
         {
             Debug.Log("Negative Reward");
-            // AddReward(-1f);
+            AddReward(-10f);
             //Debug.Log("Episode End");
             EndEpisode();
         }
-        
-        AddReward(1/Math.Abs(targetTransform.position.x-transform.position.x));
+
+        // Paddle is getting closer to the Ball
+        if (curPositionDifference < lastPositionDifference)
+        {
+            AddReward(5f);
+            Debug.Log("Positive Reward - position");
+        }
+        // Paddle is getting further away from the ball
+        else if (curPositionDifference > lastPositionDifference)
+        {
+            AddReward(-5f);
+            Debug.Log("Negative Reward - position");
+        }
+        lastPositionDifference = curPositionDifference;
     }
     
 }
