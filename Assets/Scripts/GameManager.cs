@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     public Text ballsText;
     public Text levelText;
+    public Text TotalScoreText;
 
     public GameObject panelMenu;
     public GameObject panelPlay;
@@ -42,7 +43,9 @@ public class GameManager : MonoBehaviour
     public int Level
     {
         get { return _level; }
-        set { _level = value; }
+        set { _level = value; 
+            levelText.text = "LEVEL: " + _level;
+        }
     }
 
     private int _balls;
@@ -50,7 +53,9 @@ public class GameManager : MonoBehaviour
     public int Balls
     {
         get { return _balls; }
-        set { _balls = value; }
+        set { _balls = value; 
+            ballsText.text = "BALLS: " + _balls;
+        }
     }
 
 
@@ -89,9 +94,11 @@ public class GameManager : MonoBehaviour
         switch (newState)
         {
             case State.MENU:
+                Cursor.visible = true;
                 panelMenu.SetActive(true);
                 break;
             case State.INIT:
+                Cursor.visible = false;
                 panelPlay.SetActive(true);
                 Score = 0;
                 Level = 0;
@@ -102,7 +109,11 @@ public class GameManager : MonoBehaviour
             case State.PLAY:
                 break;
             case State.LEVELCOMPLETED:
+                Destroy(_currentBall);
+                Destroy(_currentLevel);
+                Level++;
                 panelLevelCompleted.SetActive(true);
+                SwitchState(State.LOADLEVEL, 2f);
                 break;
             case State.LOADLEVEL:
                 if (Level >= levels.Length)
@@ -142,12 +153,22 @@ public class GameManager : MonoBehaviour
                         SwitchState(State.GAMEOVER);
                     }
                 }
+                if (_currentLevel != null && _currentLevel.transform.childCount == 0 && !_isSwitchingState)
+                {
+                    SwitchState(State.LEVELCOMPLETED);
+                }
                 break;
             case State.LEVELCOMPLETED:
                 break;
             case State.LOADLEVEL:
                 break;
             case State.GAMEOVER:
+                PlayerPrefs.SetInt("totalscore", Score);
+                TotalScoreText.text = "TOTAL SCORE: " + PlayerPrefs.GetInt("totalscore");
+                if (Input.anyKeyDown)
+                {
+                    SwitchState(State.MENU);
+                }
                 break;
         }
     }
