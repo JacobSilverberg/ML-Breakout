@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] levels;
 
     // 2 player game objects
+    public GameObject middleWall;
     public GameObject ballPrefab1;
     public GameObject playerPrefab1;
     public GameObject ballPrefab2;
@@ -30,12 +31,18 @@ public class GameManager : MonoBehaviour
     public Text scoreText2;
     public Text ballsText2;
     public Text levelText2;
+    public Text TotalScoreText2_1;
+    public Text TotalScoreText2_2;
     public GameObject[] levels2_1;
     public GameObject[] levels2_2;
 
     public GameObject panelPlay2;
     public GameObject panelLevelCompleted2_1;
     public GameObject panelLevelCompleted2_2;
+    public GameObject panelEliminated1;
+    public GameObject panelEliminated2;
+    public GameObject panelGameOver2_1;
+    public GameObject panelGameOver2_2;
 
     GameObject _currentBall1;
     GameObject _currentLevel1;
@@ -44,7 +51,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
-    public enum State { MENU, INIT, PLAY, LEVELCOMPLETED, LOADLEVEL, GAMEOVER, INIT2, PLAY2, LEVELCOMPLETED2_1, LEVELCOMPLETED2_2, LOADLEVEL2, LOADLEVEL2_1, LOADLEVEL2_2, GAMEOVER2 }
+    public enum State { MENU, INIT, PLAY, LEVELCOMPLETED, LOADLEVEL, GAMEOVER, INIT2, PLAY2, LEVELCOMPLETED2_1, LEVELCOMPLETED2_2, LOADLEVEL2, LOADLEVEL2_1, LOADLEVEL2_2, ELIMINATED1, ELIMINATED2, GAMEOVER2 }
     State _state;
 
     GameObject _currentBall;
@@ -173,7 +180,6 @@ public class GameManager : MonoBehaviour
         SwitchState(State.MENU);
     }
 
-
     public void SwitchState(State newState, float delay = 0)
     {
         StartCoroutine(SwitchDelay(newState, delay));
@@ -233,13 +239,14 @@ public class GameManager : MonoBehaviour
             // logic for controlling 2 player game
             case State.INIT2:
                 Cursor.visible = false;
-                panelPlay.SetActive(true);
+                panelPlay2.SetActive(true);
                 Score1 = 0;
                 Level1 = 0;
                 Balls1 = 3;
                 Score2 = 0;
                 Level2 = 0;
                 Balls2 = 3;
+                middleWall.SetActive(true);
                 Instantiate(playerPrefab1);
                 Instantiate(playerPrefab2);
                 SwitchState(State.LOADLEVEL2);
@@ -247,8 +254,18 @@ public class GameManager : MonoBehaviour
             case State.PLAY2:
                 break;
             case State.LEVELCOMPLETED2_1:
+                Destroy(_currentBall1);
+                Destroy(_currentLevel1);
+                Level1++;
+                panelLevelCompleted2_1.SetActive(true);
+                SwitchState(State.LOADLEVEL2_1, 2f);
                 break;
             case State.LEVELCOMPLETED2_2:
+                Destroy(_currentBall2);
+                Destroy(_currentLevel2);
+                Level2++;
+                panelLevelCompleted2_2.SetActive(true);
+                SwitchState(State.LOADLEVEL2_2, 2f);
                 break;
             case State.LOADLEVEL2:
                 _currentLevel1 = Instantiate(levels2_1[Level1]);
@@ -256,10 +273,47 @@ public class GameManager : MonoBehaviour
                 SwitchState(State.PLAY2);
                 break;
             case State.LOADLEVEL2_1:
+                if (Level1 >= levels2_1.Length)
+                {
+                    SwitchState(State.GAMEOVER2);
+                }
+                else
+                {
+                    _currentLevel = Instantiate(levels2_1[Level1]);
+                    SwitchState(State.PLAY2);
+                }
                 break;
             case State.LOADLEVEL2_2:
+                if (Level2 >= levels2_2.Length)
+                {
+                    SwitchState(State.GAMEOVER2);
+                }
+                else
+                {
+                    _currentLevel = Instantiate(levels2_2[Level2]);
+                    SwitchState(State.PLAY2);
+                }
+                break;
+            case State.ELIMINATED1:
+                panelEliminated1.SetActive(true);
+                break;
+            case State.ELIMINATED2:
+                panelEliminated2.SetActive(true);
                 break;
             case State.GAMEOVER2:
+                Destroy(_currentBall1);
+                Destroy(_currentLevel1);
+                Destroy(_currentBall2);
+                Destroy(_currentLevel2);
+                middleWall.SetActive(false);
+                if (_score1 > _score2)
+                {
+                    panelGameOver2_1.SetActive(true);
+                }
+                else if (_score1 < _score2)
+                {
+                    panelGameOver2_2.SetActive(true);
+                }
                 break;
 
         }
@@ -316,7 +370,7 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        SwitchState(State.GAMEOVER2);
+                        SwitchState(State.ELIMINATED1);
                     }
                 }
                 if (_currentBall2 == null)
@@ -327,8 +381,16 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        SwitchState(State.GAMEOVER2);
+                        SwitchState(State.ELIMINATED2);
                     }
+                }
+                if (_currentLevel1 != null && _currentLevel1.transform.childCount == 0 && !_isSwitchingState)
+                {
+                    SwitchState(State.LEVELCOMPLETED2_1);
+                }
+                if (_currentLevel2 != null && _currentLevel2.transform.childCount == 0 && !_isSwitchingState)
+                {
+                    SwitchState(State.LEVELCOMPLETED2_2);
                 }
                 break;
             case State.LEVELCOMPLETED2_1:
@@ -341,7 +403,27 @@ public class GameManager : MonoBehaviour
                 break;
             case State.LOADLEVEL2_2:
                 break;
+            case State.ELIMINATED1:
+                if (_score2 > _score1)
+                {
+                    SwitchState(State.GAMEOVER2);
+                }
+                break;
+            case State.ELIMINATED2:
+                if (_score1 > _score2)
+                {
+                    SwitchState(State.GAMEOVER2);
+                }
+                break;
             case State.GAMEOVER2:
+                PlayerPrefs.SetInt("totalscore1", Score1);
+                PlayerPrefs.SetInt("totalscore2", Score2);
+                TotalScoreText2_1.text = PlayerPrefs.GetInt("totalscore1") + " TO " + PlayerPrefs.GetInt("totalscore2");
+                TotalScoreText2_2.text = PlayerPrefs.GetInt("totalscore1") + " TO " + PlayerPrefs.GetInt("totalscore2");
+                if (Input.anyKeyDown)
+                {
+                    SwitchState(State.MENU);
+                }
                 break;
         }
     }
@@ -374,8 +456,10 @@ public class GameManager : MonoBehaviour
             case State.PLAY2:
                 break;
             case State.LEVELCOMPLETED2_1:
+                panelLevelCompleted2_1.SetActive(false);
                 break;
             case State.LEVELCOMPLETED2_2:
+                panelLevelCompleted2_2.SetActive(false);
                 break;
             case State.LOADLEVEL2:
                 break;
@@ -383,9 +467,16 @@ public class GameManager : MonoBehaviour
                 break;
             case State.LOADLEVEL2_2:
                 break;
+            case State.ELIMINATED1:
+                panelEliminated1.SetActive(false);
+                break;
+            case State.ELIMINATED2:
+                panelEliminated2.SetActive(false);
+                break;
             case State.GAMEOVER2:
-                panelPlay.SetActive(false);
-                panelGameOver.SetActive(false);
+                panelPlay2.SetActive(false);
+                panelGameOver2_1.SetActive(false);
+                panelGameOver2_2.SetActive(false);
                 break;
         }
     }
