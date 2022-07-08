@@ -7655,7 +7655,6 @@ MonoBehaviour:
   panelGameOver: {fileID: 46560813}
   levels:
   - {fileID: 2549799440605508852, guid: 0be933d9740ed104c8ebe1414a52bc91, type: 3}
-  - {fileID: 2549799440605508852, guid: 1d56669fd917c43e1b9a4b64bf4a83d6, type: 3}
   ballPrefab1: {fileID: 3216065446569584671, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
   playerPrefab1: {fileID: 5106813669491007435, guid: c7bb4e1ece4b2d34bb82a7c2da4afab0, type: 3}
   ballPrefab2: {fileID: 3216065446569584671, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
@@ -7921,7 +7920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2137069387
 Transform:
   m_ObjectHideFlags: 0
