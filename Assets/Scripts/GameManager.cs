@@ -19,9 +19,32 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] levels;
 
+    // 2 player game objects
+    public GameObject ballPrefab1;
+    public GameObject playerPrefab1;
+    public GameObject ballPrefab2;
+    public GameObject playerPrefab2;
+    public Text scoreText1;
+    public Text ballsText1;
+    public Text levelText1;
+    public Text scoreText2;
+    public Text ballsText2;
+    public Text levelText2;
+    public GameObject[] levels2_1;
+    public GameObject[] levels2_2;
+
+    public GameObject panelPlay2;
+    public GameObject panelLevelCompleted2_1;
+    public GameObject panelLevelCompleted2_2;
+
+    GameObject _currentBall1;
+    GameObject _currentLevel1;
+    GameObject _currentBall2;
+    GameObject _currentLevel2;
+
     public static GameManager Instance { get; private set; }
 
-    public enum State { MENU, INIT, PLAY, LEVELCOMPLETED, LOADLEVEL, GAMEOVER }
+    public enum State { MENU, INIT, PLAY, LEVELCOMPLETED, LOADLEVEL, GAMEOVER, INIT2, PLAY2, LEVELCOMPLETED2_1, LEVELCOMPLETED2_2, LOADLEVEL2, LOADLEVEL2_1, LOADLEVEL2_2, GAMEOVER2 }
     State _state;
 
     GameObject _currentBall;
@@ -59,10 +82,87 @@ public class GameManager : MonoBehaviour
     }
 
 
+    private int _score1;
+
+    public int Score1
+    {
+        get { return _score1; }
+        set
+        {
+            _score1 = value;
+            scoreText1.text = "SCORE: " + _score1;
+        }
+    }
+
+    private int _level1;
+
+    public int Level1
+    {
+        get { return _level1; }
+        set
+        {
+            _level1 = value;
+            levelText1.text = "LEVEL: " + _level1;
+        }
+    }
+
+    private int _balls1;
+
+    public int Balls1
+    {
+        get { return _balls1; }
+        set
+        {
+            _balls1 = value;
+            ballsText1.text = "BALLS: " + _balls1;
+        }
+    }
+
+    private int _score2;
+
+    public int Score2
+    {
+        get { return _score2; }
+        set
+        {
+            _score2 = value;
+            scoreText2.text = "SCORE: " + _score2;
+        }
+    }
+
+    private int _level2;
+
+    public int Level2
+    {
+        get { return _level2; }
+        set
+        {
+            _level2 = value;
+            levelText2.text = "LEVEL: " + _level2;
+        }
+    }
+
+    private int _balls2;
+
+    public int Balls2
+    {
+        get { return _balls2; }
+        set
+        {
+            _balls2 = value;
+            ballsText2.text = "BALLS: " + _balls2;
+        }
+    }
+
 
     public void PlayClicked()
     {
         SwitchState(State.INIT);
+    }
+
+    public void Play2Clicked()
+    {
+        SwitchState(State.INIT2);
     }
 
 
@@ -129,6 +229,39 @@ public class GameManager : MonoBehaviour
             case State.GAMEOVER:
                 panelGameOver.SetActive(true);
                 break;
+
+            // logic for controlling 2 player game
+            case State.INIT2:
+                Cursor.visible = false;
+                panelPlay.SetActive(true);
+                Score1 = 0;
+                Level1 = 0;
+                Balls1 = 3;
+                Score2 = 0;
+                Level2 = 0;
+                Balls2 = 3;
+                Instantiate(playerPrefab1);
+                Instantiate(playerPrefab2);
+                SwitchState(State.LOADLEVEL2);
+                break;
+            case State.PLAY2:
+                break;
+            case State.LEVELCOMPLETED2_1:
+                break;
+            case State.LEVELCOMPLETED2_2:
+                break;
+            case State.LOADLEVEL2:
+                _currentLevel1 = Instantiate(levels2_1[Level1]);
+                _currentLevel2 = Instantiate(levels2_2[Level2]);
+                SwitchState(State.PLAY2);
+                break;
+            case State.LOADLEVEL2_1:
+                break;
+            case State.LOADLEVEL2_2:
+                break;
+            case State.GAMEOVER2:
+                break;
+
         }
     }
 
@@ -170,6 +303,46 @@ public class GameManager : MonoBehaviour
                     SwitchState(State.MENU);
                 }
                 break;
+
+
+            case State.INIT2:
+                break;
+            case State.PLAY2:
+                if (_currentBall1 == null)
+                {
+                    if (Balls1 > 0)
+                    {
+                        _currentBall1 = Instantiate(ballPrefab1);
+                    }
+                    else
+                    {
+                        SwitchState(State.GAMEOVER2);
+                    }
+                }
+                if (_currentBall2 == null)
+                {
+                    if (Balls2 > 0)
+                    {
+                        _currentBall2 = Instantiate(ballPrefab2);
+                    }
+                    else
+                    {
+                        SwitchState(State.GAMEOVER2);
+                    }
+                }
+                break;
+            case State.LEVELCOMPLETED2_1:
+                break;
+            case State.LEVELCOMPLETED2_2:
+                break;
+            case State.LOADLEVEL2:
+                break;
+            case State.LOADLEVEL2_1:
+                break;
+            case State.LOADLEVEL2_2:
+                break;
+            case State.GAMEOVER2:
+                break;
         }
     }
 
@@ -190,6 +363,27 @@ public class GameManager : MonoBehaviour
             case State.LOADLEVEL:
                 break;
             case State.GAMEOVER:
+                panelPlay.SetActive(false);
+                panelGameOver.SetActive(false);
+                break;
+
+
+            case State.INIT2:
+                panelMenu.SetActive(false);
+                break;
+            case State.PLAY2:
+                break;
+            case State.LEVELCOMPLETED2_1:
+                break;
+            case State.LEVELCOMPLETED2_2:
+                break;
+            case State.LOADLEVEL2:
+                break;
+            case State.LOADLEVEL2_1:
+                break;
+            case State.LOADLEVEL2_2:
+                break;
+            case State.GAMEOVER2:
                 panelPlay.SetActive(false);
                 panelGameOver.SetActive(false);
                 break;
