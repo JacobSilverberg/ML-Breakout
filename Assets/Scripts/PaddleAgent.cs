@@ -74,21 +74,21 @@ public class PaddleAgent : Agent
 
     private void OnCollisionEnter(Collision obj)
     {
-        if (obj.gameObject.name == "Ball")
+        if (obj.gameObject.name == "Brick1")
         {
-            //Debug.Log("Positive Reward"); 
+            Debug.Log("Brick hit"); 
             AddReward(10f);
         }
         
+        if (obj.gameObject.name == "Floor")
+        {
+            Debug.Log("Floor hit"); 
+            AddReward(10f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<LearningFloor>(out LearningFloor floor))
-        {
-            Debug.Log("Ball Lost");
-            SetReward(1f);
-        }
     }
 
 } 
