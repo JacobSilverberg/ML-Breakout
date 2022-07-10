@@ -28,7 +28,7 @@ public class PaddleAgent : Agent
     // Agent Action
     public override void OnActionReceived(ActionBuffers actions)
     {
-        float moveX = actions.DiscreteActions[0];
+        float moveX = actions.ContinuousActions[0];
         //Debug.Log(moveX);
 
         // Move paddle right, left, or hold
@@ -58,59 +58,40 @@ public class PaddleAgent : Agent
     // Agent Observation
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition.x);
-        sensor.AddObservation(targetTransform.localPosition.x);
-        //sensor.AddObservation(transform.localPosition); // This is the 'transform' localPosition of the agent object, the paddle
-        //sensor.AddObservation(targetTransform.localPosition); // This is the localPosition of a target which is the ball
+        sensor.AddObservation(this.transform.localPosition); //This is the 'transform' localPosition of the agent object, the paddle
+        sensor.AddObservation(targetTransform.localPosition); // This is the localPosition of a target which is the ball
+
+        sensor.AddObservation(_ballRigidBody.velocity.x);  // This is the speed of the ball
+        sensor.AddObservation(_ballRigidBody.velocity.y); 
  
     }
 
-    /*
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
         continuousActions[0] = Input.GetAxisRaw("Horizontal");
     }
-    */
 
     private void OnCollisionEnter(Collision obj)
     {
-        if (obj.gameObject.name == "Ball")
+        if (obj.gameObject.name == "Brick1")
         {
-            Debug.Log("Positive Reward"); 
+            Debug.Log("Brick hit"); 
             AddReward(10f);
         }
-
         
+        if (obj.gameObject.name == "Floor")
+        {
+            Debug.Log("Floor hit"); 
+            AddReward(10f);
+        }
     }
 
-    float lastPositionDifference;
-    private void FixedUpdate()
+    private void OnTriggerEnter(Collider other)
     {
-        var curPositionDifference = Math.Abs(targetTransform.position.x - transform.position.x);
-
-        // Ball drops out of game
-        if (targetTransform.transform.localPosition.y < -18f)
-        {
-            Debug.Log("Negative Reward");
-            AddReward(-10f);
-            //Debug.Log("Episode End");
-            EndEpisode();
-        }
-
-        // Paddle is getting closer to the Ball
-        if (curPositionDifference < lastPositionDifference)
-        {
-            AddReward(5f);
-            Debug.Log("Positive Reward - position");
-        }
-        // Paddle is getting further away from the ball
-        else if (curPositionDifference > lastPositionDifference)
-        {
-            AddReward(-5f);
-            Debug.Log("Negative Reward - position");
-        }
-        lastPositionDifference = curPositionDifference;
     }
-    
-}
+
+} 
+
+
+

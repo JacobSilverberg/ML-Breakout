@@ -9,6 +9,7 @@ public class Ball : MonoBehaviour
     Vector3 _velocity;
     Renderer _renderer;
 
+    public GameObject ballObject;
 
     void Start()
     {
@@ -21,7 +22,7 @@ public class Ball : MonoBehaviour
     void Launch()
     {
         //make the ball travel up initially
-        _rigidbody.velocity = Vector3.up * _speed;
+        _rigidbody.velocity = Vector3.up * (_speed + 15f);
     }
 
     void FixedUpdate()
@@ -29,11 +30,6 @@ public class Ball : MonoBehaviour
         _rigidbody.velocity = _rigidbody.velocity.normalized * _speed;
         _velocity = _rigidbody.velocity;
 
-        if (!_renderer.isVisible)
-        {
-            GameManager.Instance.Balls--;
-            Destroy(gameObject);
-        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -41,4 +37,5 @@ public class Ball : MonoBehaviour
         _rigidbody.velocity = Vector3.Reflect(_velocity, collision.contacts[0].normal);
     }
 }
+
 
