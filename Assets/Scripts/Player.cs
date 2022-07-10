@@ -14,16 +14,15 @@ public class Player : MonoBehaviour
         leftwall = GameObject.Find("Wall-left");
         rightwall = GameObject.Find("Wall-right");
     }
-
     void FixedUpdate()
     {
-        if ((Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 50)).x + 
+        if ((Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 0)).x + 
         rightwall.transform.localScale.x + transform.localScale.x / 2) > 35)
         {
             //Debug.Log(Input.mousePosition.x);
             Debug.Log("out of right boundary");
         }
-        else if ((Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 50)).x - 
+        else if ((Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 0)).x - 
         rightwall.transform.localScale.x - transform.localScale.x / 2) < -35)
         {
             //Debug.Log(Input.mousePosition.x);
@@ -31,7 +30,8 @@ public class Player : MonoBehaviour
         }
         else 
         {
-            _rigidbody.MovePosition(new Vector3(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 50)).x, -17, 0));
+            _rigidbody.MovePosition(new Vector3(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 0)).x, 0, 0));
         }
     }
 }
+

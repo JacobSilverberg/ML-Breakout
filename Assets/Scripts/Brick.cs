@@ -15,23 +15,20 @@ public class Brick : MonoBehaviour
 
     void Start()
     {
-        transform.Rotate(rotator * (transform.position.x + transform.position.y) * 0.1f);
 
         // Get renderer and store original material
         _renderer = GetComponent<Renderer>();
         _orgMaterial = _renderer.sharedMaterial;
     }
 
-
     void Update()
     {
-        transform.Rotate(rotator * Time.deltaTime);
+
     }
 
     private void OnCollisionEnter(Collision other) {
         hits--;
         if (hits <= 0) {
-            GameManager.Instance.Score += points;
             Destroy(gameObject);
         }
 
@@ -47,3 +44,4 @@ public class Brick : MonoBehaviour
     }
         
 }
+
