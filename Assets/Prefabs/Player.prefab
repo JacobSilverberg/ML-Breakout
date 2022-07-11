@@ -14,6 +14,9 @@ GameObject:
   - component: {fileID: 5106813669491007409}
   - component: {fileID: 5106813669491007414}
   - component: {fileID: -850022692783881063}
+  - component: {fileID: 1573310129414300149}
+  - component: {fileID: 5547456111354438862}
+  - component: {fileID: 6975834157377240337}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -98,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213fb20fa52fd4b02802ca34c33ae29f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftwall: {fileID: 0}
+  rightwall: {fileID: 0}
 --- !u!54 &5106813669491007414
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -141,14 +146,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 8
+    VectorObservationSize: 2
     NumStackedVectorObservations: 1
     m_ActionSpec:
-      m_NumContinuousActions: 1
-      BranchSizes: 
-    VectorActionSize: 01000000
+      m_NumContinuousActions: 0
+      BranchSizes: 03000000
+    VectorActionSize: 03000000
     VectorActionDescriptions: []
-    VectorActionSpaceType: 1
+    VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: 8442699dc9c454c9998382c56e1abba8, type: 3}
   m_InferenceDevice: 1
@@ -174,7 +179,7 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  targetTransform: {fileID: 3216065446569584672, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
+  _ballTransform: {fileID: 3216065446569584672, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
   _ballRigidBody: {fileID: 3216065446569584668, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
 --- !u!114 &6975834157377240337
 MonoBehaviour:
