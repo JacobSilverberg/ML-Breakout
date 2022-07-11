@@ -20,13 +20,13 @@ public class Player : MonoBehaviour
         rightwall.transform.localScale.x + transform.localScale.x / 2) > 35)
         {
             //Debug.Log(Input.mousePosition.x);
-            Debug.Log("out of right boundary");
+            //Debug.Log("out of right boundary");
         }
         else if ((Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 0)).x - 
         rightwall.transform.localScale.x - transform.localScale.x / 2) < -35)
         {
             //Debug.Log(Input.mousePosition.x);
-            Debug.Log("out of left boundary");
+            //Debug.Log("out of left boundary");
         }
         else 
         {
