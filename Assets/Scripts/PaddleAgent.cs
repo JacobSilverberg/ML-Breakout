@@ -14,21 +14,45 @@ public class PaddleAgent : Agent
     float rightLimit = 33f;   
     bool lostBall = false;
 
+    Ball ball; 
+
     // Ball transforms
     [SerializeField] private Transform _ballTransform;
-    [SerializeField] private Rigidbody _ballRigidBody;
-        
-    //[SerializeField] private Transform _bricksTransform;
-    //[SerializeField] private Rigidbody _bricksRigidBody; 
+    [SerializeField] private Rigidbody _ballRigidBody;  
 
+    void Start()
+    { 
+        ball = GameObject.Find("Ball").GetComponent<Ball>();
+    }
 
     // Resetting the ball for the new episode
     public override void OnEpisodeBegin()
     {
-        //Debug.Log("Episode Start");
-        _ballTransform.position = new Vector3(0, 17.89f, 0);
-        _ballRigidBody.velocity = Vector3.down * moveSpeed; 
+
+        StartCoroutine(start_episode());
         
+    } 
+
+    IEnumerator start_episode()
+    {
+
+        yield return new WaitForSeconds(0.5f);
+        lostBall = false;
+        ball.transform.position = new Vector3(0, 17.89f, 0);
+        ball.Launch();
+        Debug.Log("Episode Start");  
+    } 
+
+
+
+    // Agent Observation
+    public override void CollectObservations(VectorSensor sensor)
+    {
+        sensor.AddObservation(transform.localPosition.x);
+        sensor.AddObservation(_ballTransform.localPosition.x);
+        //sensor.AddObservation(transform.localPosition); // This is the 'transform' localPosition of the agent object, the paddle
+        //sensor.AddObservation(targetTransform.localPosition); // This is the localPosition of a target which is the ball
+ 
     }
 
     // Agent Action
@@ -71,25 +95,17 @@ public class PaddleAgent : Agent
 
         if (distanceToBall == 0f)
         {
-            //SetReward(10f);
+            AddReward(1.0f);
         }
 
         else if (this.ballLostCheck())
         {
+            Debug.Log("Negative reward imposed");
             SetReward(-10f);
+            Debug.Log("Ending Episode");
             EndEpisode();
         }
 
-    }
-
-    // Agent Observation
-    public override void CollectObservations(VectorSensor sensor)
-    {
-        sensor.AddObservation(transform.localPosition.x);
-        sensor.AddObservation(_ballTransform.localPosition.x);
-        //sensor.AddObservation(transform.localPosition); // This is the 'transform' localPosition of the agent object, the paddle
-        //sensor.AddObservation(targetTransform.localPosition); // This is the localPosition of a target which is the ball
- 
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)

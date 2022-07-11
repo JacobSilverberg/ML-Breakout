@@ -7,11 +7,12 @@ public class Floor : MonoBehaviour
 
     PaddleAgent paddleAgent; 
 
-
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider collision)
     { 
-
-        paddleAgent = FindObjectOfType<PaddleAgent>();
-        paddleAgent.GetComponent<PaddleAgent>().LostBall();
+        if (collision.transform.tag == "Ball")
+        {
+            paddleAgent = FindObjectOfType<PaddleAgent>();
+            paddleAgent.GetComponent<PaddleAgent>().LostBall();
+        }
     }
 }
