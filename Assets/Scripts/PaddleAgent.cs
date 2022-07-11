@@ -11,25 +11,35 @@ public class PaddleAgent : Agent
 
     float moveSpeed = 20f;
     float leftLimit = -33f;
-    float rightLimit = 33f; 
+    float rightLimit = 33f;   
+    bool lostBall = false;
 
-    [SerializeField] private Transform targetTransform;
+    // Ball transforms
+    [SerializeField] private Transform _ballTransform;
     [SerializeField] private Rigidbody _ballRigidBody;
+        
+    //[SerializeField] private Transform _bricksTransform;
+    //[SerializeField] private Rigidbody _bricksRigidBody; 
+
 
     // Resetting the ball for the new episode
     public override void OnEpisodeBegin()
     {
         //Debug.Log("Episode Start");
-        targetTransform.position = new Vector3(-1.01f,0.06f,0f);
+        _ballTransform.position = new Vector3(0, 17.89f, 0);
         _ballRigidBody.velocity = Vector3.down * moveSpeed; 
         
     }
 
     // Agent Action
     public override void OnActionReceived(ActionBuffers actions)
-    {
-        float moveX = actions.ContinuousActions[0];
-        //Debug.Log(moveX);
+    { 
+        // ##############################################################
+        // Action System
+        // ##############################################################
+        float moveX = actions.DiscreteActions[0];
+
+        //Debug.Log("Moving agent in: " + actions.DiscreteActions[0]);
 
         // Move paddle right, left, or hold
         if (moveX == 1)
@@ -46,52 +56,63 @@ public class PaddleAgent : Agent
         }
     
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftLimit, rightLimit), transform.position.y, transform.position.z);
-        
+
         /*
         // Make sure paddle is within walls
         if (transform.localPosition.x < 35 && transform.localPosition.x > -35){
             transform.localPosition += new Vector3(moveX, 0, 0) * Time.deltaTime * moveSpeed;
         }
         */
+
+        // ##############################################################
+        // Reward System
+        // ############################################################## 
+        float distanceToBall = Vector3.Distance(this.transform.localPosition, _ballTransform.localPosition);
+
+        if (distanceToBall == 0f)
+        {
+            //SetReward(10f);
+        }
+
+        else if (this.ballLostCheck())
+        {
+            SetReward(-10f);
+            EndEpisode();
+        }
+
     }
 
     // Agent Observation
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(this.transform.localPosition); //This is the 'transform' localPosition of the agent object, the paddle
-        sensor.AddObservation(targetTransform.localPosition); // This is the localPosition of a target which is the ball
-
-        sensor.AddObservation(_ballRigidBody.velocity.x);  // This is the speed of the ball
-        sensor.AddObservation(_ballRigidBody.velocity.y); 
+        sensor.AddObservation(transform.localPosition.x);
+        sensor.AddObservation(_ballTransform.localPosition.x);
+        //sensor.AddObservation(transform.localPosition); // This is the 'transform' localPosition of the agent object, the paddle
+        //sensor.AddObservation(targetTransform.localPosition); // This is the localPosition of a target which is the ball
  
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-        continuousActions[0] = Input.GetAxisRaw("Horizontal");
+        ActionSegment<int> continuousActions = actionsOut.DiscreteActions;
+        continuousActions[0] = Mathf.RoundToInt(Input.GetAxis("Horizontal"));
     }
 
-    private void OnCollisionEnter(Collision obj)
+    public void LostBall()
     {
-        if (obj.gameObject.name == "Brick1")
-        {
-            Debug.Log("Brick hit"); 
-            AddReward(10f);
-        }
-        
-        if (obj.gameObject.name == "Floor")
-        {
-            Debug.Log("Floor hit"); 
-            AddReward(10f);
-        }
+        this.lostBall = true;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private bool ballLostCheck()
     {
+        if (this.lostBall == true) {
+            Debug.Log("Lost the ball");
+        } 
+
+        return this.lostBall; 
     }
 
-} 
 
-
+    
+}
 
