@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6544,7 +6544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 3216065446569584671, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
-  playerPrefab: {fileID: 5106813669491007435, guid: c7bb4e1ece4b2d34bb82a7c2da4afab0, type: 3}
+  playerPrefab: {fileID: 5106813669491007435, guid: 938da22dafeee0c459ed2bbefaa5b523, type: 3}
   scoreText: {fileID: 1154936125}
   ballsText: {fileID: 1883793678}
   levelText: {fileID: 1091442720}

@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 5106813669491007412}
   - component: {fileID: 5106813669491007413}
   - component: {fileID: -8821090040619717597}
-  - component: {fileID: 5106813669491007409}
   - component: {fileID: 5106813669491007414}
   - component: {fileID: -850022692783881063}
   - component: {fileID: 2016066117715041435}
+  - component: {fileID: -699853903466508821}
   m_Layer: 0
-  m_Name: Player
+  m_Name: AI_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104,22 +104,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  targetTransform: {fileID: 5106813669491007415}
+  targetTransform: {fileID: 3216065446569584672, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
   _ballRigidBody: {fileID: 3216065446569584668, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
---- !u!114 &5106813669491007409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5106813669491007435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 213fb20fa52fd4b02802ca34c33ae29f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftwall: {fileID: 0}
-  rightwall: {fileID: 0}
 --- !u!54 &5106813669491007414
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -163,20 +149,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 1
+    VectorObservationSize: 6
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 01000000
-    VectorActionSize: 01000000
+      BranchSizes: 03000000
+    VectorActionSize: 03000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
-  m_InferenceDevice: 0
+  m_InferenceDevice: 1
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
+  m_BehaviorName: CatchBall
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
+--- !u!114 &-699853903466508821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5106813669491007435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1

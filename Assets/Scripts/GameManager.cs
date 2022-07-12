@@ -26,7 +26,10 @@ public class GameManager : MonoBehaviour
 
     GameObject _currentBall;
     GameObject _currentLevel;
+    GameObject _currentPlayer;
+
     bool _isSwitchingState;
+ 
 
     private int _score;
 
@@ -74,7 +77,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void SwitchState(State newState, float delay = 0)
+    public void SwitchState(State newState, float delay = 2)
     {
         StartCoroutine(SwitchDelay(newState, delay));
     }
@@ -98,12 +101,12 @@ public class GameManager : MonoBehaviour
                 panelMenu.SetActive(true);
                 break;
             case State.INIT:
-                Cursor.visible = false;
+                Cursor.visible = true;
                 panelPlay.SetActive(true);
                 Score = 0;
                 Level = 0;
                 Balls = 3;
-                Instantiate(playerPrefab);
+                _currentPlayer = Instantiate(playerPrefab);
                 SwitchState(State.LOADLEVEL);
                 break;
             case State.PLAY:
@@ -119,6 +122,7 @@ public class GameManager : MonoBehaviour
                 if (Level >= levels.Length)
                 {
                     SwitchState(State.GAMEOVER);
+                    Debug.Log("LOADLEVEL");
                 }
                 else
                 {
@@ -127,7 +131,11 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case State.GAMEOVER:
+                Destroy(_currentPlayer);
+                Destroy(_currentLevel);
                 panelGameOver.SetActive(true);
+                SwitchState(State.INIT);
+                Debug.Log("test");
                 break;
         }
     }
@@ -148,9 +156,10 @@ public class GameManager : MonoBehaviour
                     {
                         _currentBall = Instantiate(ballPrefab);
                     }
-                    else
+                    else if (!_isSwitchingState)
                     {
                         SwitchState(State.GAMEOVER);
+                        Debug.Log("PLAY");
                     }
                 }
                 if (_currentLevel != null && _currentLevel.transform.childCount == 0 && !_isSwitchingState)
@@ -165,10 +174,12 @@ public class GameManager : MonoBehaviour
             case State.GAMEOVER:
                 PlayerPrefs.SetInt("totalscore", Score);
                 TotalScoreText.text = "TOTAL SCORE: " + PlayerPrefs.GetInt("totalscore");
+
+                /*
                 if (Input.anyKeyDown)
                 {
                     SwitchState(State.MENU);
-                }
+                }*/
                 break;
         }
     }
