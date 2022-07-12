@@ -733,6 +733,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 668115537}
     m_Modifications:
+    - target: {fileID: 1573310129414300149, guid: c7bb4e1ece4b2d34bb82a7c2da4afab0, type: 3}
+      propertyPath: m_BehaviorName
+      value: MovePaddle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1573310129414300149, guid: c7bb4e1ece4b2d34bb82a7c2da4afab0, type: 3}
+      propertyPath: m_BehaviorType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5106813669491007409, guid: c7bb4e1ece4b2d34bb82a7c2da4afab0, type: 3}
       propertyPath: leftwall
       value: 
@@ -887,7 +895,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4865164621669117231, guid: 13c3279f53d35fb41b8d0cd6d5c8698f, type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4865164621906034126, guid: 13c3279f53d35fb41b8d0cd6d5c8698f, type: 3}
       propertyPath: m_Name

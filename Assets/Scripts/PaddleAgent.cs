@@ -101,11 +101,17 @@ public class PaddleAgent : Agent
         else if (this.ballLostCheck())
         {
             Debug.Log("Negative reward imposed");
-            SetReward(-10f);
+            AddReward(-10f);
             Debug.Log("Ending Episode");
             EndEpisode();
         }
 
+    } 
+
+    public void BrickDestroyed()
+    {
+        Debug.Log("Broke a brick - adding reward");
+        AddReward(1.0f);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)

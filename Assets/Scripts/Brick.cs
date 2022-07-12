@@ -13,6 +13,8 @@ public class Brick : MonoBehaviour
     Material _orgMaterial;
     Renderer _renderer;
 
+    PaddleAgent paddleAgent;  
+
     void Start()
     {
 
@@ -26,7 +28,15 @@ public class Brick : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision other) {
+    private void OnCollisionEnter(Collision other) { 
+
+        if (other.transform.tag == "Ball")
+
+        {
+            paddleAgent = FindObjectOfType<PaddleAgent>();
+            paddleAgent.GetComponent<PaddleAgent>().BrickDestroyed();
+        } 
+        
         hits--;
         if (hits <= 0) {
             Destroy(gameObject);
@@ -34,8 +44,9 @@ public class Brick : MonoBehaviour
 
         // after ball collision, turn brick to hitMaterial, then call RestoreMaterial after 0.05 seconds
         _renderer.sharedMaterial = hitMaterial;
-        Invoke("RestoreMaterial", 0.05f);
-    }
+        Invoke("RestoreMaterial", 0.05f); 
+
+    } 
 
     // function to restore brick to original material
     void RestoreMaterial()

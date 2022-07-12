@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae713147735b1143b5f95043d7efc03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  paddleAgent: {fileID: 5547456111354438862, guid: c7bb4e1ece4b2d34bb82a7c2da4afab0, type: 3}
 --- !u!1 &4865164620596401308
 GameObject:
   m_ObjectHideFlags: 0
