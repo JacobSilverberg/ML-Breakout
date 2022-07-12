@@ -9127,8 +9127,8 @@ MonoBehaviour:
   panelLevelCompleted: {fileID: 689820355}
   panelGameOver: {fileID: 46560813}
   levels:
-  - {fileID: 2549799440605508852, guid: b2a73c4b90adeee4cbdc86e3208f1f8b, type: 3}
   - {fileID: 194249950786410040, guid: 6c7f25340781ce54a94db053e0d73ea4, type: 3}
+  - {fileID: 2549799440605508852, guid: b2a73c4b90adeee4cbdc86e3208f1f8b, type: 3}
   middleWall: {fileID: 2137069386}
   ballPrefab1: {fileID: 93892886403696677, guid: 9e80c37651ac91649b3c194fef8bace5, type: 3}
   playerPrefab1: {fileID: 2692716525173979849, guid: 3797f4990e4327940833721a9ac85db0, type: 3}
