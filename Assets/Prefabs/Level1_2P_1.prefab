@@ -6213,22 +6213,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8850538246860831246, guid: 74d7415ae9e6d4b009e1ee7aecf05137, type: 3}
   m_PrefabInstance: {fileID: 3306579153354359193}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8107367532190234606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6282584822934403991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baae24697bfa5a048b274213714e956b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hits: 1
-  points: 100
-  rotator: {x: 45, y: 0, z: 0}
-  hitMaterial: {fileID: 0}
 --- !u!114 &1300058452252090922
 MonoBehaviour:
   m_ObjectHideFlags: 0

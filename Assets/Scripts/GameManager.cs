@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject panelLevelCompleted;
     public GameObject panelGameOver;
 
+    GameObject _player;
+
     public GameObject[] levels;
 
     // 2 player game objects
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] levels2_1;
     public GameObject[] levels2_2;
 
+    public GameObject panelMenu2;
     public GameObject panelPlay2;
     public GameObject panelLevelCompleted2_1;
     public GameObject panelLevelCompleted2_2;
@@ -48,10 +51,14 @@ public class GameManager : MonoBehaviour
     GameObject _currentLevel1;
     GameObject _currentBall2;
     GameObject _currentLevel2;
+    GameObject _player1;
+    GameObject _player2;
+
+    
 
     public static GameManager Instance { get; private set; }
 
-    public enum State { MENU, INIT, PLAY, LEVELCOMPLETED, LOADLEVEL, GAMEOVER, INIT2, PLAY2, LEVELCOMPLETED2_1, LEVELCOMPLETED2_2, LOADLEVEL2, LOADLEVEL2_1, LOADLEVEL2_2, ELIMINATED1, ELIMINATED2, GAMEOVER2 }
+    public enum State { MENU, INIT, PLAY, LEVELCOMPLETED, LOADLEVEL, GAMEOVER, MENU2, INIT2, PLAY2, LEVELCOMPLETED2_1, LEVELCOMPLETED2_2, LOADLEVEL2, LOADLEVEL2_1, LOADLEVEL2_2, ELIMINATED1, ELIMINATED2, GAMEOVER2 }
     State _state;
 
     GameObject _currentBall;
@@ -162,9 +169,19 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void PlayClicked()
+    public void Play1Clicked()
     {
         SwitchState(State.INIT);
+    }
+
+    public void Menu2Clicked()
+    {
+        Loader.Load(Loader.Scene.TwoPlayerScene);
+    }
+
+    public void Menu1Clicked()
+    {
+        Loader.Load(Loader.Scene.OnePlayerScene);
     }
 
     public void Play2Clicked()
@@ -199,9 +216,11 @@ public class GameManager : MonoBehaviour
     {
         switch (newState)
         {
+            // Single Player Logic
             case State.MENU:
                 Cursor.visible = true;
                 panelMenu.SetActive(true);
+                panelMenu2.SetActive(false);
                 break;
             case State.INIT:
                 Cursor.visible = false;
@@ -209,7 +228,7 @@ public class GameManager : MonoBehaviour
                 Score = 0;
                 Level = 0;
                 Balls = 3;
-                Instantiate(playerPrefab);
+                _player = Instantiate(playerPrefab);
                 SwitchState(State.LOADLEVEL);
                 break;
             case State.PLAY:
@@ -233,10 +252,17 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case State.GAMEOVER:
+                Destroy(_player);
+                Destroy(_currentLevel);
                 panelGameOver.SetActive(true);
                 break;
 
-            // logic for controlling 2 player game
+            // Two Player Logic
+            case State.MENU2:
+                Cursor.visible = true;
+                panelMenu.SetActive(false);
+                panelMenu2.SetActive(true);
+                break;
             case State.INIT2:
                 Cursor.visible = false;
                 panelPlay2.SetActive(true);
@@ -247,8 +273,8 @@ public class GameManager : MonoBehaviour
                 Level2 = 0;
                 Balls2 = 3;
                 middleWall.SetActive(true);
-                Instantiate(playerPrefab1);
-                Instantiate(playerPrefab2);
+                _player1 = Instantiate(playerPrefab1);
+                _player2 = Instantiate(playerPrefab2);
                 SwitchState(State.LOADLEVEL2);
                 break;
             case State.PLAY2:
@@ -279,7 +305,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    _currentLevel = Instantiate(levels2_1[Level1]);
+                    _currentLevel1 = Instantiate(levels2_1[Level1]);
                     SwitchState(State.PLAY2);
                 }
                 break;
@@ -290,7 +316,7 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    _currentLevel = Instantiate(levels2_2[Level2]);
+                    _currentLevel2 = Instantiate(levels2_2[Level2]);
                     SwitchState(State.PLAY2);
                 }
                 break;
@@ -305,6 +331,8 @@ public class GameManager : MonoBehaviour
                 Destroy(_currentLevel1);
                 Destroy(_currentBall2);
                 Destroy(_currentLevel2);
+                Destroy(_player1);
+                Destroy(_player2);
                 middleWall.SetActive(false);
                 if (_score1 > _score2)
                 {
@@ -315,7 +343,6 @@ public class GameManager : MonoBehaviour
                     panelGameOver2_2.SetActive(true);
                 }
                 break;
-
         }
     }
 
@@ -324,6 +351,7 @@ public class GameManager : MonoBehaviour
     {
         switch (_state)
         {
+            // Single Player Logic
             case State.MENU:
                 break;
             case State.INIT:
@@ -358,7 +386,7 @@ public class GameManager : MonoBehaviour
                 }
                 break;
 
-
+            // Two Player Logic
             case State.INIT2:
                 break;
             case State.PLAY2:
@@ -408,11 +436,33 @@ public class GameManager : MonoBehaviour
                 {
                     SwitchState(State.GAMEOVER2);
                 }
+                if (_currentBall2 == null)
+                {
+                    if (Balls2 > 0)
+                    {
+                        _currentBall2 = Instantiate(ballPrefab2);
+                    }
+                    else
+                    {
+                        SwitchState(State.GAMEOVER2);
+                    }
+                }
                 break;
             case State.ELIMINATED2:
                 if (_score1 > _score2)
                 {
                     SwitchState(State.GAMEOVER2);
+                }
+                if (_currentBall1 == null)
+                {
+                    if (Balls1 > 0)
+                    {
+                        _currentBall1 = Instantiate(ballPrefab1);
+                    }
+                    else
+                    {
+                        SwitchState(State.GAMEOVER2);
+                    }
                 }
                 break;
             case State.GAMEOVER2:
@@ -432,6 +482,7 @@ public class GameManager : MonoBehaviour
     {
         switch (_state)
         {
+            // Single Player Logic
             case State.MENU:
                 panelMenu.SetActive(false);
                 break;
@@ -449,7 +500,7 @@ public class GameManager : MonoBehaviour
                 panelGameOver.SetActive(false);
                 break;
 
-
+            // Two Player Logic
             case State.INIT2:
                 panelMenu.SetActive(false);
                 break;

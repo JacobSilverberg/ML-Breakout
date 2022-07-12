@@ -9534,7 +9534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hits: 1
   points: 100
-  rotator: {x: 0, y: 0, z: 0}
+  rotator: {x: 45, y: 0, z: 0}
   hitMaterial: {fileID: 0}
 --- !u!4 &1682164924038943299 stripped
 Transform:
