@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
-    public enum State { MENU, INIT, PLAY, LEVELCOMPLETED, LOADLEVEL, GAMEOVER }
+    public enum State { MENU, INIT, RESET, PLAY, LEVELCOMPLETED, LOADLEVEL, GAMEOVER }
     State _state;
 
     GameObject _currentBall;
@@ -105,8 +105,18 @@ public class GameManager : MonoBehaviour
                 panelPlay.SetActive(true);
                 Score = 0;
                 Level = 0;
-                Balls = 3;
+                //ball count changed for training
+                Balls = 1;
                 _currentPlayer = Instantiate(playerPrefab);
+                SwitchState(State.LOADLEVEL);
+                break;
+            case State.RESET:
+                Cursor.visible = true;
+                panelPlay.SetActive(true);
+                Score = 0;
+                Level = 0;
+                //ball count changed for training
+                Balls = 1;
                 SwitchState(State.LOADLEVEL);
                 break;
             case State.PLAY:
@@ -131,11 +141,11 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case State.GAMEOVER:
-                Destroy(_currentPlayer);
+                //Destroy(_currentPlayer);
                 Destroy(_currentLevel);
                 panelGameOver.SetActive(true);
-                SwitchState(State.INIT);
-                Debug.Log("test");
+                SwitchState(State.RESET);
+                //Debug.Log("test");
                 break;
         }
     }
@@ -149,21 +159,25 @@ public class GameManager : MonoBehaviour
                 break;
             case State.INIT:
                 break;
+            case State.RESET:
+                break;
             case State.PLAY:
                 if (_currentBall == null)
                 {
                     if (Balls > 0)
                     {
+                        Debug.Log("Balls " + Balls);
                         _currentBall = Instantiate(ballPrefab);
                     }
                     else if (!_isSwitchingState)
                     {
                         SwitchState(State.GAMEOVER);
-                        Debug.Log("PLAY");
+                        //Debug.Log("PLAY");
                     }
                 }
                 if (_currentLevel != null && _currentLevel.transform.childCount == 0 && !_isSwitchingState)
                 {
+                    _currentBall.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
                     SwitchState(State.LEVELCOMPLETED);
                 }
                 break;
@@ -192,6 +206,8 @@ public class GameManager : MonoBehaviour
                 panelMenu.SetActive(false);
                 break;
             case State.INIT:
+                break;
+            case State.RESET:
                 break;
             case State.PLAY:
                 break;
