@@ -9127,13 +9127,13 @@ MonoBehaviour:
   panelLevelCompleted: {fileID: 689820355}
   panelGameOver: {fileID: 46560813}
   levels:
-  - {fileID: 194249950786410040, guid: 6c7f25340781ce54a94db053e0d73ea4, type: 3}
-  - {fileID: 2549799440605508852, guid: b2a73c4b90adeee4cbdc86e3208f1f8b, type: 3}
+  - {fileID: 1726131878573201032, guid: 8fb76821487b76b47a31379e9385a6be, type: 3}
+  - {fileID: 8498592003668369862, guid: 6c7f25340781ce54a94db053e0d73ea4, type: 3}
   middleWall: {fileID: 2137069386}
   ballPrefab1: {fileID: 93892886403696677, guid: 9e80c37651ac91649b3c194fef8bace5, type: 3}
-  playerPrefab1: {fileID: 2692716525173979849, guid: 3797f4990e4327940833721a9ac85db0, type: 3}
+  playerPrefab1: {fileID: 4041462955216648569, guid: 3797f4990e4327940833721a9ac85db0, type: 3}
   ballPrefab2: {fileID: 7078993702183726781, guid: 29904de30ea02e14486fd4a06f436d46, type: 3}
-  playerPrefab2: {fileID: 8971170832356548923, guid: 527654700081eae4081510d0e86bdea3, type: 3}
+  playerPrefab2: {fileID: 2552785477057691782, guid: 527654700081eae4081510d0e86bdea3, type: 3}
   scoreText1: {fileID: 1416429794}
   ballsText1: {fileID: 747284163}
   levelText1: {fileID: 69361131}
@@ -9143,9 +9143,11 @@ MonoBehaviour:
   TotalScoreText2_1: {fileID: 155550992}
   TotalScoreText2_2: {fileID: 707519175}
   levels2_1:
-  - {fileID: 4967010636473697435, guid: def456bcd44f97c4096f923db5e3edee, type: 3}
+  - {fileID: 4160800720493704880, guid: 78b2ff24647bc064d9d3fbb9270e765a, type: 3}
+  - {fileID: 4401873340590307411, guid: def456bcd44f97c4096f923db5e3edee, type: 3}
   levels2_2:
-  - {fileID: 392363475306330526, guid: c8a27885989b3d74c975b7981e8e33a5, type: 3}
+  - {fileID: 5018869284680061019, guid: 1af625036c341ab4fb871797891f37c1, type: 3}
+  - {fileID: 1406724070183182601, guid: c8a27885989b3d74c975b7981e8e33a5, type: 3}
   panelMenu2: {fileID: 804608670}
   panelPlay2: {fileID: 632381502}
   panelLevelCompleted2_1: {fileID: 1316132069}

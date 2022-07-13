@@ -10,6 +10,8 @@ public class Player2P_1 : MonoBehaviour
     Rigidbody _rigidbody;
     Vector3 _velocity;
     Renderer _renderer;
+    public bool left_wall = false;
+    public bool middle_wall = false;
 
     // Start is called before the first frame update
     void Start()
@@ -25,12 +27,6 @@ public class Player2P_1 : MonoBehaviour
         float xDirection = Input.GetAxis("Horizontal");
         Vector3 moveDirection = new Vector3(xDirection, 0.0f);
         transform.position += moveDirection * speed1;
-    }
-
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        _rigidbody.velocity = Vector3.Reflect(_velocity, collision.contacts[0].normal);
     }
 
 }
