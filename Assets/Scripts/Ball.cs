@@ -22,7 +22,6 @@ public class Ball : MonoBehaviour
     public void Launch()
     {
         //make the ball travel up initially '
-       
         _rigidbody.velocity = Vector3.up * (_speed + 15f);
     }
 
