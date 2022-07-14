@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball
+  - Floor
+  - Spawner
+  - BrickSet
   layers:
   - Default
   - TransparentFX
