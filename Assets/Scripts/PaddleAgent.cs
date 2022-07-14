@@ -1,47 +1,62 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using UnityEngine;
 
 public class PaddleAgent : Agent
 {
 
     float moveSpeed = 20f;
     float leftLimit = -33f;
-    float rightLimit = 33f;   
+    float rightLimit = 33f;
     bool lostBall = false;
+    bool bricksSpawned = false;
 
     Ball ball; 
+    Spawner spawner;
+
+    GameObject brickset;
 
     // Ball transforms
     [SerializeField] private Transform _ballTransform;
-    [SerializeField] private Rigidbody _ballRigidBody;  
+    [SerializeField] private Rigidbody _ballRigidBody;
 
     void Start()
     { 
+        
         ball = GameObject.Find("Ball").GetComponent<Ball>();
+        spawner = GameObject.Find("Spawner").GetComponent<Spawner>();
     }
 
     // Resetting the ball for the new episode
     public override void OnEpisodeBegin()
     {
+        
+        if (bricksSpawned == false)
+        {
+            bricksSpawned = true;
+        } 
+        else
+        {
+            spawner.DestroyBricks(brickset);
+        }
 
         StartCoroutine(start_episode());
-        
-    } 
+        transform.localPosition = new Vector3(Random.Range(-13f, 49.90f), -3.31f);
+        brickset = spawner.SpawnBricks();
+
+    }
 
     IEnumerator start_episode()
     {
 
         yield return new WaitForSeconds(0.5f);
         lostBall = false;
-        ball.transform.position = new Vector3(0, 17.89f, 0);
+        ball.transform.position = new Vector3(Random.Range(-25, 25f), 17.89f, 0);
         ball.Launch();
-        Debug.Log("Episode Start");  
-    } 
+        Debug.Log("Episode Start");
+    }
 
 
 
@@ -52,12 +67,12 @@ public class PaddleAgent : Agent
         sensor.AddObservation(_ballTransform.localPosition.x);
         //sensor.AddObservation(transform.localPosition); // This is the 'transform' localPosition of the agent object, the paddle
         //sensor.AddObservation(targetTransform.localPosition); // This is the localPosition of a target which is the ball
- 
+
     }
 
     // Agent Action
     public override void OnActionReceived(ActionBuffers actions)
-    { 
+    {
         // ##############################################################
         // Action System
         // ##############################################################
@@ -72,13 +87,13 @@ public class PaddleAgent : Agent
         }
         else if (moveX == 2)
         {
-            transform.localPosition += new Vector3(-1  * Time.deltaTime * moveSpeed, 0, 0);
+            transform.localPosition += new Vector3(-1 * Time.deltaTime * moveSpeed, 0, 0);
         }
         else
         {
             transform.localPosition += new Vector3(0 * Time.deltaTime * moveSpeed, 0, 0);
         }
-    
+
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftLimit, rightLimit), transform.position.y, transform.position.z);
 
         /*
@@ -106,7 +121,7 @@ public class PaddleAgent : Agent
             EndEpisode();
         }
 
-    } 
+    }
 
     public void BrickDestroyed()
     {
@@ -127,14 +142,15 @@ public class PaddleAgent : Agent
 
     private bool ballLostCheck()
     {
-        if (this.lostBall == true) {
+        if (this.lostBall == true)
+        {
             Debug.Log("Lost the ball");
-        } 
+        }
 
-        return this.lostBall; 
+        return this.lostBall;
     }
 
 
-    
+
 }
 
