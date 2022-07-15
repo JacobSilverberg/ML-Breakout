@@ -13,14 +13,23 @@ public class PaddleAgent : Agent
     bool lostBall = false;
     bool bricksSpawned = false;
 
-    Ball ball; 
     Spawner spawner;
 
-    GameObject brickset;
+    private TrainingArea trainingArea;
+    new private Rigidbody rigidbody;
+    private GameObject ball;
 
-    // Ball transforms
-    [SerializeField] private Transform _ballTransform;
-    [SerializeField] private Rigidbody _ballRigidBody;
+
+    public override void Initialize()
+    {
+        base.Initialize(); 
+        trainingArea = GetComponentInParent<TrainingArea>();
+        ball = trainingArea.ball;
+        rigidbody = GetComponent<Rigidbody>();
+    }
+
+
+
 
     void Start()
     { 
@@ -32,6 +41,10 @@ public class PaddleAgent : Agent
     // Resetting the ball for the new episode
     public override void OnEpisodeBegin()
     {
+
+        trainingArea.ResetArea();
+
+
         
         if (bricksSpawned == false)
         {
@@ -63,10 +76,15 @@ public class PaddleAgent : Agent
     // Agent Observation
     public override void CollectObservations(VectorSensor sensor)
     {
-        sensor.AddObservation(transform.localPosition.x);
-        sensor.AddObservation(_ballTransform.localPosition.x);
-        //sensor.AddObservation(transform.localPosition); // This is the 'transform' localPosition of the agent object, the paddle
-        //sensor.AddObservation(targetTransform.localPosition); // This is the localPosition of a target which is the ball
+
+        sensor.AddObservation(transform.position.x); 
+        sensor.AddObservation(transform.position.y); 
+        sensor.AddObservation(rigidbody.velocity.x); 
+        sensor.AddObservation(rigidbody.velocity.y);
+
+        sensor.AddObservation(ball.transform.position.x);
+        sensor.AddObservation(ball.transform.position.y); 
+
 
     }
 
@@ -94,14 +112,14 @@ public class PaddleAgent : Agent
             transform.localPosition += new Vector3(0 * Time.deltaTime * moveSpeed, 0, 0);
         }
 
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x, leftLimit, rightLimit), transform.position.y, transform.position.z);
-
-        /*
-        // Make sure paddle is within walls
-        if (transform.localPosition.x < 35 && transform.localPosition.x > -35){
-            transform.localPosition += new Vector3(moveX, 0, 0) * Time.deltaTime * moveSpeed;
+        transform.position =  new Vector3(Mathf.Clamp(transform.position.x, leftLimit, rightLimit), transform.position.y, transform.position.z);
+    
+        // Apply a negative reward for every step to encourgage action
+        if (MaxStep > 0)
+        {
+            AddReward(-1f / MaxStep);
         }
-        */
+
 
         // ##############################################################
         // Reward System
@@ -131,8 +149,15 @@ public class PaddleAgent : Agent
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
+
+        int moveAction = 0;  
+
+
+
         ActionSegment<int> continuousActions = actionsOut.DiscreteActions;
         continuousActions[0] = Mathf.RoundToInt(Input.GetAxis("Horizontal"));
+
+
     }
 
     public void LostBall()
