@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 5106813669491007415}
   - component: {fileID: 5106813669491007412}
   - component: {fileID: 5106813669491007413}
-  - component: {fileID: -8821090040619717597}
   - component: {fileID: 5106813669491007414}
   - component: {fileID: -850022692783881063}
   - component: {fileID: 2016066117715041435}
+  - component: {fileID: -6662506587842132975}
   - component: {fileID: -699853903466508821}
+  - component: {fileID: -3050200891961841661}
   m_Layer: 0
   m_Name: AI_Player
   m_TagString: Untagged
@@ -88,26 +89,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-8821090040619717597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5106813669491007435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de627a477339db847a2cb6873e09b7b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
-  targetTransform: {fileID: 3216065446569584672, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
-  _ballRigidBody: {fileID: 3216065446569584668, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
-  leftWallTransform: {fileID: 3021123567060012153, guid: 52d27bd0ccb1c4649b8a9e884ff13264, type: 3}
-  rightWallTransform: {fileID: 8881810362050668913, guid: 1590faea4674bd844b6524b357da7a3a, type: 3}
 --- !u!54 &5106813669491007414
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -151,8 +132,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 7
-    NumStackedVectorObservations: 21
+    VectorObservationSize: 1
+    NumStackedVectorObservations: 3
     m_ActionSpec:
       m_NumContinuousActions: 1
       BranchSizes: 03000000
@@ -168,6 +149,26 @@ MonoBehaviour:
   m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
+--- !u!114 &-6662506587842132975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5106813669491007435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 148a087f67b46644d841546bb8a139b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  targetTransform: {fileID: 3216065446569584672, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
+  _ballRigidBody: {fileID: 3216065446569584668, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
+  leftWallTransform: {fileID: 3021123567060012153, guid: 52d27bd0ccb1c4649b8a9e884ff13264, type: 3}
+  rightWallTransform: {fileID: 8881810362050668913, guid: 1590faea4674bd844b6524b357da7a3a, type: 3}
 --- !u!114 &-699853903466508821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,5 +181,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DecisionPeriod: 5
+  DecisionPeriod: 7
   TakeActionsBetweenDecisions: 1
+--- !u!114 &-3050200891961841661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5106813669491007435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 7576631723269387522, guid: dfb0c2e612d86544dbf8c530ae29bab3, type: 3}
+  m_SensorName: CameraSensor
+  m_Width: 100
+  m_Height: 57
+  m_Grayscale: 0
+  m_ObservationType: 0
+  m_ObservationStacks: 5
+  m_Compression: 1

@@ -23,17 +23,17 @@ behaviors:
       vis_encode_type: simple
       normalize: false
       hidden_units: 128
-      num_layers: 2
+      num_layers: 3
       # memory
       memory:
         sequence_length: 64
         memory_size: 256
 
     # Trainer configurations common to all trainers
-    max_steps: 1000000
+    max_steps: 10000000
     time_horizon: 64
     summary_freq: 10000
-    keep_checkpoints: 5
+    keep_checkpoints: 100
     checkpoint_interval: 50000
     threaded: false
     init_path: null

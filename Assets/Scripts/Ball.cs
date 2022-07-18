@@ -21,7 +21,7 @@ public class Ball : MonoBehaviour
     void Launch()
     {
         //make the ball travel up initially
-        _rigidbody.velocity = Vector3.up * _speed;
+        _rigidbody.velocity = Vector3.down * _speed;
     }
 
     void FixedUpdate()
@@ -38,7 +38,9 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        //Debug.Log("ball before hit - " + _rigidbody.velocity);
         _rigidbody.velocity = Vector3.Reflect(_velocity, collision.contacts[0].normal);
+        //Debug.Log("ball after hit - " + _rigidbody.velocity);
     }
 }
 
