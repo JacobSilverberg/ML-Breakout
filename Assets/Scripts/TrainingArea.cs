@@ -29,7 +29,7 @@ public class TrainingArea : MonoBehaviour
     }
     private void Update()
     {
-        CumulativeReward.text = paddleAgent.GetComponent<PlayerAgent>().GetReward().ToString("0.00");
+        CumulativeReward.text = paddleAgent.GetComponent<PlayerAgent>().GetCumulativeReward().ToString("0.00");
     }
 
     /// <summary> 
