@@ -110,7 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae713147735b1143b5f95043d7efc03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  paddleAgent: {fileID: 5547456111354438862, guid: c7bb4e1ece4b2d34bb82a7c2da4afab0, type: 3}
 --- !u!1 &4865164620596401308
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +125,7 @@ GameObject:
   - component: {fileID: 4865164620596401283}
   m_Layer: 0
   m_Name: Wall-right
-  m_TagString: Untagged
+  m_TagString: Right_Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -372,7 +371,7 @@ GameObject:
   - component: {fileID: 4865164621985230472}
   m_Layer: 0
   m_Name: Wall-left
-  m_TagString: Untagged
+  m_TagString: Left_Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

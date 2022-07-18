@@ -1,84 +1,127 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TrainingArea : MonoBehaviour
 {
 
-    [Tooltip("The agent inside the area")]
-    public PaddleAgent paddleAgent;
+    [Tooltip("The agent inside the training area")]
+    public GameObject paddleAgent;
 
-    [Tooltip("The baby penguin inside the area")]
+    [Tooltip("The ball to be used in training ")]
+    public Ball ballPrefab;  
+
+    [Tooltip("Prefab of the brick set")]
+    public BrickSet brickSetPrefab;
+
+    public TextMeshPro CumulativeReward;
+
+    [HideInInspector]
     public GameObject ball;
 
-    [Tooltip("Prefab of a live fish")]
-    public Brick brickPrefab;
-    public BrickSet bricksetPrefab;
+    [HideInInspector]
+    public GameObject brickset;
+    float _speed = 10f;
+
+    private void Start() {
+        //InitialSet();
+    }
+    private void Update()
+    {
+        CumulativeReward.text = paddleAgent.GetComponent<PlayerAgent>().GetReward().ToString("0.00");
+    }
 
     /// <summary> 
     /// Resets the learning area back to defualts  
     /// </summary>
+    public void InitialSet()
+    {
+        PlaceBricks();
+        PlaceBall();
+        PlacePaddle();
+    } 
+
     public void ResetArea()
     {
-        RemoveAllBricks();
-        PlacePaddle();
-        PlaceBall();
-        PlaceBricks();
+        RemoveObjects();
+        ResetObjects();
     }
 
-    /// <summary> 
-    /// Returns the number of bricks left in the simulation
-    /// </summary>
-    public int BricksRemaining()
+    public void ResetObjects()
     {
-        return bricksetPrefab.transform.childCount;
+        PlaceBricks();
+        PlaceBall();
+        PlacePaddle();
     }
 
-    private void RemoveAllBricks()
-    { 
+    public void RemoveObjects()
+    {
+
+        DestroyBricks();
+        DestroyBall();
 
     } 
+
     
     private void PlacePaddle()
-    {
-    
-            Rigidbody rigidBody = paddleAgent.GetComponent<Rigidbody>();        
-            rigidBody.velocity = Vector3.zero;   
-            rigidBody.angularVelocity = Vector3.zero;   
+    { 
 
-            
-            paddleAgent.transform.position = new Vector3(Random.Range(-13f, 49.90f), -3.31f);
-            //paddleAgent.transform.localPosition  = new Vector3(Random.Range(-13f, 49.90f), -3.31f);
+        Rigidbody rigidBody = paddleAgent.GetComponent<Rigidbody>();        
+        rigidBody.velocity = Vector3.zero;   
+        rigidBody.angularVelocity = Vector3.zero;   
+        
+        paddleAgent.transform.position = new Vector3(Random.Range(-13f, 49.90f), -3.31f, 0f);
+        paddleAgent.transform.SetParent(transform);
+
  
     }
 
     private void PlaceBall()
-    {
+    { 
+        ball = Instantiate(ballPrefab.gameObject);
         Rigidbody rigidbody = ball.GetComponent<Rigidbody>();       
         rigidbody.velocity = Vector3.zero;
         ball.transform.position = new Vector3(Random.Range(-25, 25f), 17.89f, 0);
-        rigidbody.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+        rigidbody.transform.rotation = Quaternion.Euler(0f, 180f, 0f); 
+        rigidbody.velocity = Vector3.down * (_speed - 5f); 
+
+        ball.transform.SetParent(transform, false);
 
     }
     
     private void PlaceBricks()
     {
+        brickset = Instantiate(brickSetPrefab.gameObject);
+        brickset.transform.position = new Vector3(-0.4f, 1.62f, 0f);
 
+        brickset.transform.SetParent(transform, false);
     }
 
-
-    private void Start()
+    public void DestroyBricks()
     {
-        ResetArea(); 
-    }
+        Destroy(brickset);
+        brickset = null;
 
+    } 
 
-    private void Update()
+    private void DestroyBall()
     {
-        
-    }
+        Destroy(ball);
+        ball = null;
+    } 
 
+    public GameObject GetBall()
+    {
 
+        return ball;
+
+    } 
+     
+     public void CollisionDetected()
+     {
+        paddleAgent.GetComponent<PlayerAgent>().NotifyAgentofLostBall(); 
+     } 
 
 
 }

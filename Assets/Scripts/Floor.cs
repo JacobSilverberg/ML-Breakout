@@ -5,14 +5,26 @@ using UnityEngine;
 public class Floor : MonoBehaviour
 {
 
-    PaddleAgent paddleAgent; 
+    private GameObject ball;
+    TrainingArea trainingArea;
+    PlayerAgent agent;
+
+    private void Start()
+    {
+        trainingArea = FindObjectOfType<TrainingArea>();  
+        agent = FindObjectOfType<PlayerAgent>();
+
+    }
+
 
     private void OnTriggerEnter(Collider collision)
-    { 
+    {
+
         if (collision.transform.tag == "Ball")
         {
-            paddleAgent = FindObjectOfType<PaddleAgent>();
-            paddleAgent.GetComponent<PaddleAgent>().LostBall();
+            ball = trainingArea.GetBall();
+            ball.GetComponent<Ball>().LostBall(); 
+            transform.parent.parent.GetComponent<TrainingArea>().CollisionDetected();
         }
     }
 }
