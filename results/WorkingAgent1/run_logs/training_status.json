@@ -2,22 +2,31 @@
     "MovePaddle": {
         "checkpoints": [
             {
-                "steps": 10311,
-                "file_path": "results\\WorkingAgent1\\MovePaddle\\MovePaddle-10311.onnx",
-                "reward": 0.2826086956521739,
-                "creation_time": 1658120820.432304,
+                "steps": 499118,
+                "file_path": "results\\WorkingAgent1\\MovePaddle\\MovePaddle-499118.onnx",
+                "reward": null,
+                "creation_time": 1658124729.437693,
                 "auxillary_file_paths": [
-                    "results\\WorkingAgent1\\MovePaddle\\MovePaddle-10311.pt"
+                    "results\\WorkingAgent1\\MovePaddle\\MovePaddle-499118.pt"
+                ]
+            },
+            {
+                "steps": 500118,
+                "file_path": "results\\WorkingAgent1\\MovePaddle\\MovePaddle-500118.onnx",
+                "reward": null,
+                "creation_time": 1658124729.5196898,
+                "auxillary_file_paths": [
+                    "results\\WorkingAgent1\\MovePaddle\\MovePaddle-500118.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 10311,
+            "steps": 500118,
             "file_path": "results\\WorkingAgent1\\MovePaddle.onnx",
-            "reward": 0.2826086956521739,
-            "creation_time": 1658120820.432304,
+            "reward": null,
+            "creation_time": 1658124729.5196898,
             "auxillary_file_paths": [
-                "results\\WorkingAgent1\\MovePaddle\\MovePaddle-10311.pt"
+                "results\\WorkingAgent1\\MovePaddle\\MovePaddle-500118.pt"
             ]
         }
     },

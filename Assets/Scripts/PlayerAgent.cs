@@ -148,10 +148,7 @@ public class PlayerAgent : Agent
     
     public void NotifyAgentofLostBall()
     {
-
-        //Debug.Log("Ball lost, ending episode"); 
         EndEpisode(); 
-
     }
 
     void FixedUpdate()
