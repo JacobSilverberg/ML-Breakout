@@ -13,7 +13,7 @@ public class Brick : MonoBehaviour
     Material _orgMaterial;
     Renderer _renderer;
 
-    PaddleAgent paddleAgent;  
+    PlayerAgent paddleAgent;  
 
     void Start()
     {
@@ -33,8 +33,8 @@ public class Brick : MonoBehaviour
         if (other.transform.tag == "Ball")
 
         {
-            paddleAgent = FindObjectOfType<PaddleAgent>();
-            paddleAgent.GetComponent<PaddleAgent>().BrickDestroyed();
+            paddleAgent = FindObjectOfType<PlayerAgent>();
+            paddleAgent.GetComponent<PlayerAgent>().BrickDestroyed();
         } 
         
         hits--;
