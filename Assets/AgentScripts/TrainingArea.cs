@@ -72,7 +72,7 @@ public class TrainingArea : MonoBehaviour
         rigidBody.velocity = Vector3.zero;   
         rigidBody.angularVelocity = Vector3.zero;   
         
-        paddleAgent.transform.position = new Vector3(Random.Range(-13f, 49.90f), -3.31f, 0f);
+        paddleAgent.transform.localPosition = new Vector3(Random.Range(-13f, 49.90f), -3.31f, 0f);
         paddleAgent.transform.SetParent(transform);
 
  
