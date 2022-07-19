@@ -8,8 +8,8 @@ public class PlayerAgent : Agent
 {
 
     float moveSpeed = 20f;
-    float leftLimit = -33f;
-    float rightLimit = 33f;
+    float leftLimit;
+    float rightLimit;
 
     private TrainingArea trainingArea;
     new private Rigidbody rigidbody;
@@ -28,6 +28,9 @@ public class PlayerAgent : Agent
         rightwall = GameObject.FindGameObjectWithTag("Right_Wall");
         leftwall = GameObject.FindGameObjectWithTag("Left_Wall");
         rigidbody = GetComponent<Rigidbody>();
+
+        leftLimit = transform.localPosition.x-33f;
+        rightLimit = transform.localPosition.x+33f;
 
     }
 
@@ -65,7 +68,7 @@ public class PlayerAgent : Agent
             transform.localPosition += new Vector3(0 * Time.deltaTime * moveSpeed, 0, 0);
         }
 
-        transform.position =  new Vector3(Mathf.Clamp(transform.position.x, leftLimit, rightLimit), transform.position.y, transform.position.z);
+        transform.localPosition =  new Vector3(Mathf.Clamp(transform.localPosition.x, leftLimit, rightLimit), transform.localPosition.y, transform.localPosition.z);
     
 
 
@@ -86,16 +89,16 @@ public class PlayerAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
 
-        sensor.AddObservation(Vector3.Distance(ball.transform.position, transform.position));
-        sensor.AddObservation((ball.transform.position - transform.position).normalized);
+        sensor.AddObservation(Vector3.Distance(ball.transform.localPosition, transform.localPosition));
+        sensor.AddObservation((ball.transform.localPosition - transform.localPosition).normalized);
 
-        sensor.AddObservation(transform.position.x); 
-        sensor.AddObservation(transform.position.y); 
+        sensor.AddObservation(transform.localPosition.x); 
+        sensor.AddObservation(transform.localPosition.y); 
         sensor.AddObservation(rigidbody.velocity.x); 
         sensor.AddObservation(rigidbody.velocity.y);
 
-        sensor.AddObservation(ball.transform.position.x);
-        sensor.AddObservation(ball.transform.position.y); 
+        sensor.AddObservation(ball.transform.localPosition.x);
+        sensor.AddObservation(ball.transform.localPosition.y); 
 
     }
 
@@ -154,7 +157,7 @@ public class PlayerAgent : Agent
     void FixedUpdate()
     {
         var move = new Vector3(Input.GetAxis("Horizontal"), 0f);
-        transform.position += move * moveSpeed * Time.deltaTime;
+        transform.localPosition += move * moveSpeed * Time.deltaTime;
     }
     
     public float GetReward()
