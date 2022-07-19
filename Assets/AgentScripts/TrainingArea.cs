@@ -15,6 +15,7 @@ public class TrainingArea : MonoBehaviour
     [Tooltip("Prefab of the brick set")]
     public BrickSet brickSetPrefab;
 
+    [Tooltip("Reward text to disaply training")]
     public TextMeshPro CumulativeReward;
 
     [HideInInspector]
