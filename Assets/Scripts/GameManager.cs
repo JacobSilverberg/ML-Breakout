@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     GameObject _currentPlayer;
 
     bool _isSwitchingState;
- 
+    public bool levelCompleted;
 
     private int _score;
 
@@ -126,6 +126,7 @@ public class GameManager : MonoBehaviour
                 Destroy(_currentLevel);
                 Level++;
                 panelLevelCompleted.SetActive(true);
+                levelCompleted = true;
                 SwitchState(State.LOADLEVEL, 2f);
                 break;
             case State.LOADLEVEL:
@@ -138,6 +139,7 @@ public class GameManager : MonoBehaviour
                 {
                     _currentLevel = Instantiate(levels[Level]);
                     SwitchState(State.PLAY);
+
                 }
                 break;
             case State.GAMEOVER:

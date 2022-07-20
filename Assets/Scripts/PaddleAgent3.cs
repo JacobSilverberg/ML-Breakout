@@ -10,11 +10,12 @@ public class PaddleAgent3 : Agent //observe paddle and ball position, has been t
 {
     float paddleY = -17f;
     float moveSpeed = 50f;
-    float leftLimit = -33f;
-    float rightLimit = 33f;
+    //float leftLimit = -33f;
+    //float rightLimit = 33f;
     //float lastPositionDifference;
     private int rewardHitBrick;
     private int rewardHitBall;
+    private int levelComplete;
     private int _prevBall = -1; //initialize to -1
     private int _currBall;
     private int _prevScore = 0; //initialize to 0, to avoid lower than initial current score
@@ -23,7 +24,7 @@ public class PaddleAgent3 : Agent //observe paddle and ball position, has been t
     GameObject currentBall;
     //bool sameBallTrip; //mark if events happen in the same ball trip (time between hitting the paddles)
     //bool wallHit = false;
-    private bool ballhit;
+    //private bool ballhit;
 
 
     [SerializeField] private Transform targetTransform;
@@ -35,9 +36,10 @@ public class PaddleAgent3 : Agent //observe paddle and ball position, has been t
     // Resetting the ball for the new episode
     public override void OnEpisodeBegin()
     {
-        rewardHitBrick = 0;
+        rewardHitBrick = 5;
         rewardHitBall = 5;
-        ballhit = false;
+        levelComplete = 100;
+        //ballhit = false;
         targetTransform.localPosition = new Vector3(0f, 0f, 0f);
         transform.localPosition = new Vector3(0f, paddleY, 0f);
         _ballRigidBody.velocity = Vector3.down * moveSpeed;
@@ -53,7 +55,7 @@ public class PaddleAgent3 : Agent //observe paddle and ball position, has been t
         if (moveX == 1)
         {
             // Keep in the right wall
-            if (transform.localPosition.x + (1 * Time.deltaTime * moveSpeed) + rightWallTransform.localScale.x + transform.localScale.x / 2 > 35 - 1)
+            if (transform.localPosition.x + (1 * Time.deltaTime * moveSpeed) + rightWallTransform.localScale.x + transform.localScale.x / 2 > 35 - 0.5)
             {
                 Debug.Log("out of right boundary");
             }
@@ -65,7 +67,7 @@ public class PaddleAgent3 : Agent //observe paddle and ball position, has been t
         else if (moveX == 2)
         {
             // Keep in the left wall
-            if (transform.localPosition.x + (-1 * Time.deltaTime * moveSpeed) + (-1 * rightWallTransform.localScale.x) + (-1 * transform.localScale.x / 2) < -35 + 1)
+            if (transform.localPosition.x + (-1 * Time.deltaTime * moveSpeed) + (-1 * rightWallTransform.localScale.x) + (-1 * transform.localScale.x / 2) < -35 + 0.5)
             {
                 Debug.Log("out of left boundary");
             }
@@ -124,6 +126,10 @@ public class PaddleAgent3 : Agent //observe paddle and ball position, has been t
         //Debug.Log("Collision: " + obj.gameObject.name);
         if (obj.gameObject == currentBall)
         {
+            //no increaing rewards
+            AddReward(rewardHitBall); //reward for catching the ball
+            Debug.Log("Positive Reward - catch the ball");
+            /*
             // add ballhit condition to avoid AI get reward by hitting ball without hitting any brick
             if (ballhit == false)
             {
@@ -133,12 +139,13 @@ public class PaddleAgent3 : Agent //observe paddle and ball position, has been t
                 Debug.Log("Got Reward: " + rewardHitBall);
                 rewardHitBrick = 5; // every time when the ball hit the paddle, the reward starting point will be reset.
                 Debug.Log("reward reset: " + rewardHitBrick);
-            }
+            }*/
         }
     }
 
     private void FixedUpdate()
     {
+        Debug.Log("level: " + GameManager.Instance.levelCompleted);
         _currBall = GameManager.Instance.Balls;
         _currScore = GameManager.Instance.Score;
 
@@ -147,18 +154,26 @@ public class PaddleAgent3 : Agent //observe paddle and ball position, has been t
         {
             EndEpisode();
             Debug.Log("Episode Num " + CompletedEpisodes);
-            Debug.Log("Negative Reward - drop a ball");
-            AddReward(-100);
+            //Debug.Log("Negative Reward - drop a ball");
+            //AddReward(-100);
         }
 
-        //hit a brick with increased reward
+        // hit a brick with increased reward
         if (_currScore > _prevScore)
         {
             Debug.Log("Positive Reward - hit a brick");
-            rewardHitBrick += 5;
+            //rewardHitBrick += 5;
             AddReward(rewardHitBrick);
             Debug.Log("Got Reward: " + rewardHitBrick);
-            ballhit = false; //reset ballhit value
+            //ballhit = false; //reset ballhit value
+        }
+
+        // reward for level completed
+        if (GameManager.Instance.levelCompleted == true)
+        {
+            GameManager.Instance.levelCompleted = false;
+            Debug.Log("level: " + GameManager.Instance.levelCompleted);
+            AddReward(levelComplete);
         }
         _prevBall = _currBall;
         _prevScore = _currScore;
