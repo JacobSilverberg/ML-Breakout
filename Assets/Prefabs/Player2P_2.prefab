@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0323acdf26a731428f338bbbc97e510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed2: 1
+  speed2: 20
   middlewall: {fileID: 0}
   rightwall: {fileID: 0}
+  leftWallTransform: {fileID: 2064058241139057320, guid: 52d27bd0ccb1c4649b8a9e884ff13264, type: 3}
