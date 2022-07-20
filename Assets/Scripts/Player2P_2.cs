@@ -11,11 +11,11 @@ public class Player2P_2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // move with L/R keyboard inputs using Horizontal2 Input
         float xDirection = Input.GetAxis("Horizontal2");

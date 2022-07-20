@@ -9133,7 +9133,7 @@ MonoBehaviour:
   ballPrefab1: {fileID: 93892886403696677, guid: 9e80c37651ac91649b3c194fef8bace5, type: 3}
   playerPrefab1: {fileID: 4041462955216648569, guid: 3797f4990e4327940833721a9ac85db0, type: 3}
   ballPrefab2: {fileID: 7078993702183726781, guid: 29904de30ea02e14486fd4a06f436d46, type: 3}
-  playerPrefab2: {fileID: 2552785477057691782, guid: 527654700081eae4081510d0e86bdea3, type: 3}
+  playerPrefab2: {fileID: 2194055261043465908, guid: 527654700081eae4081510d0e86bdea3, type: 3}
   scoreText1: {fileID: 1416429794}
   ballsText1: {fileID: 747284163}
   levelText1: {fileID: 69361131}
