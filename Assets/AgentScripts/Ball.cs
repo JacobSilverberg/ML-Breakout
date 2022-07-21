@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.MLAgents;
+using System;
 
 public class Ball : MonoBehaviour
 {
@@ -15,9 +16,9 @@ public class Ball : MonoBehaviour
 
     void Start()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody>(); 
-        renderer = gameObject.GetComponent<Renderer>(); 
-        trainingArea = FindObjectOfType<TrainingArea>();
+        rigidbody = this.gameObject.GetComponent<Rigidbody>(); 
+        renderer = this.gameObject.GetComponent<Renderer>(); 
+        trainingArea = this.GetComponentInParent<TrainingArea>();
         agent = FindObjectOfType<PlayerAgent>();
         //add some delay between launch
         //Invoke("Launch", 0.5f);
@@ -26,10 +27,16 @@ public class Ball : MonoBehaviour
     void FixedUpdate()
     {
         rigidbody.velocity = rigidbody.velocity.normalized * _speed;
-        _velocity = rigidbody.velocity; 
+        _velocity = rigidbody.velocity;
 
-        if (transform.position.x > 200f || transform.position.x < -200f || transform.position.y > 500f || transform.position.y < -500f)
+        float x_distance = Math.Abs(transform.transform.localPosition.x - trainingArea.Origin.transform.localPosition.x);
+        float y_distance = Math.Abs(transform.transform.localPosition.y - trainingArea.Origin.transform.localPosition.y);
+
+        //Debug.Log("X distance: " + x_distance + " | Y Distance: " + y_distance);
+
+        if (x_distance > 37f || y_distance > 22f) 
         {
+            Debug.Log("Ball has been lost");
             agent.GetComponent<PlayerAgent>().EndEpisode();
         }
 
