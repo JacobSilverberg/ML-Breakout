@@ -15,8 +15,11 @@ public class TrainingArea : MonoBehaviour
     [Tooltip("Prefab of the brick set")]
     public BrickSet brickSetPrefab;
 
-    [Tooltip("Reward text to disaply training")]
+    [Tooltip("Reward text to display training")]
     public TextMeshPro CumulativeReward;
+
+    [Tooltip("Origin of current environment to keep ball in range")]
+    public GameObject Origin;
 
     [HideInInspector]
     public GameObject ball;
@@ -31,6 +34,14 @@ public class TrainingArea : MonoBehaviour
     private void Update()
     {
         CumulativeReward.text = paddleAgent.GetComponent<PlayerAgent>().GetCumulativeReward().ToString("0.00");
+
+        float paddle_distance = this.transform.localPosition.x - paddleAgent.transform.localPosition.x;
+
+        if (paddle_distance > 34f || paddle_distance < -34f)
+        {
+            paddleAgent.GetComponent<PlayerAgent>().EndEpisode();
+        }
+
     }
 
     /// <summary> 
@@ -63,7 +74,6 @@ public class TrainingArea : MonoBehaviour
         DestroyBall();
 
     } 
-
     
     private void PlacePaddle()
     { 
@@ -74,7 +84,6 @@ public class TrainingArea : MonoBehaviour
         
         paddleAgent.transform.localPosition = new Vector3(Random.Range(-13f, 49.90f), -3.31f, 0f);
         paddleAgent.transform.SetParent(transform);
-
  
     }
 

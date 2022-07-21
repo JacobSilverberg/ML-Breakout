@@ -163,7 +163,7 @@ public class PlayerAgent : Agent
     public float GetReward()
     {
         return GetCumulativeReward();
-    }
+    }  
 
 }
 
