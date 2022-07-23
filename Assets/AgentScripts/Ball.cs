@@ -37,7 +37,8 @@ public class Ball : MonoBehaviour
         if (x_distance > 37f || y_distance > 22f) 
         {
             Debug.Log("Ball has been lost");
-            agent.GetComponent<PlayerAgent>().EndEpisode();
+            trainingArea.DeleteBall();
+            //agent.GetComponent<PlayerAgent>().EndEpisode();
         }
 
     }
