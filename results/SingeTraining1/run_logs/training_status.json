@@ -1,0 +1,29 @@
+{
+    "MovePaddle": {
+        "checkpoints": [
+            {
+                "steps": 296375,
+                "file_path": "results\\SingeTraining1\\MovePaddle\\MovePaddle-296375.onnx",
+                "reward": null,
+                "creation_time": 1658592858.6659763,
+                "auxillary_file_paths": [
+                    "results\\SingeTraining1\\MovePaddle\\MovePaddle-296375.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 296375,
+            "file_path": "results\\SingeTraining1\\MovePaddle.onnx",
+            "reward": null,
+            "creation_time": 1658592858.6659763,
+            "auxillary_file_paths": [
+                "results\\SingeTraining1\\MovePaddle\\MovePaddle-296375.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.28.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

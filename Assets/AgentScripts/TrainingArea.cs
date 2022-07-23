@@ -26,7 +26,7 @@ public class TrainingArea : MonoBehaviour
 
     [HideInInspector]
     public GameObject brickset;
-    float _speed = 10f;
+    float _speed = 20f;
 
     private void Start() {
         //InitialSet();
@@ -82,7 +82,7 @@ public class TrainingArea : MonoBehaviour
         rigidBody.velocity = Vector3.zero;   
         rigidBody.angularVelocity = Vector3.zero;   
         
-        paddleAgent.transform.localPosition = new Vector3(Random.Range(-13f, 49.90f), -3.31f, 0f);
+        paddleAgent.transform.localPosition = new Vector3(Random.Range(-20f, 20f), -3.31f, 0f);
         paddleAgent.transform.SetParent(transform);
  
     }
@@ -132,7 +132,11 @@ public class TrainingArea : MonoBehaviour
      {
         paddleAgent.GetComponent<PlayerAgent>().NotifyAgentofLostBall(); 
      } 
-
+    
+     public void DeleteBall()
+    {
+        paddleAgent.GetComponent<PlayerAgent>().EndEpisode();
+    }
 
 }
 

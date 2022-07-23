@@ -75,13 +75,11 @@ public class PlayerAgent : Agent
         // ##############################################################
         // Reward System
         // ############################################################## 
-
         // Apply a negative reward for every step to encourgage action
         if (MaxStep > 0)
         {
             AddReward(-1f / MaxStep);
         }
-
 
     }
 
@@ -145,6 +143,7 @@ public class PlayerAgent : Agent
         else if ((bricks_destroyed / bricks_available) > 0.99)
         {
             AddReward(1000f);
+            EndEpisode();
         }
 
     }
