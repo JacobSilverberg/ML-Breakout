@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 5106813669491007415}
   - component: {fileID: 5106813669491007412}
   - component: {fileID: 5106813669491007413}
-  - component: {fileID: 5106813669491007409}
   - component: {fileID: 5106813669491007414}
   - component: {fileID: -850022692783881063}
+  - component: {fileID: -8488605175524009610}
   m_Layer: 0
-  m_Name: PlayerAgent
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,22 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5106813669491007409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5106813669491007435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc1e93e7462845f7993df18b77c790e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
 --- !u!54 &5106813669491007414
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -132,3 +116,17 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3256123080762291287, guid: d0ccd6a01837e463a89c5d3b2d3eef6a, type: 3}
+--- !u!114 &-8488605175524009610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5106813669491007435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 213fb20fa52fd4b02802ca34c33ae29f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftwall: {fileID: 0}
+  rightwall: {fileID: 0}

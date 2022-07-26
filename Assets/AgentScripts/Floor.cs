@@ -23,7 +23,7 @@ public class Floor : MonoBehaviour
         if (collision.transform.tag == "Ball")
         {
             ball = trainingArea.GetBall();
-            ball.GetComponent<Ball>().LostBall(); 
+            ball.GetComponent<TrainingBall>().LostBall(); 
             transform.parent.parent.GetComponent<TrainingArea>().CollisionDetected();
         }
     }

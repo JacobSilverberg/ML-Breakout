@@ -10,7 +10,7 @@ public class TrainingArea : MonoBehaviour
     public GameObject paddleAgent;
 
     [Tooltip("The ball to be used in training ")]
-    public Ball ballPrefab;  
+    public TrainingBall ballPrefab;  
 
     [Tooltip("Prefab of the brick set")]
     public BrickSet brickSetPrefab;
