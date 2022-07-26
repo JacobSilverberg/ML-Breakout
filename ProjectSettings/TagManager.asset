@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Ball
+  - Floor
+  - Spawner
+  - BrickSet
+  - Agent
+  - Right_Wall
+  - Left_Wall
+  - Area
   layers:
   - Default
   - TransparentFX
