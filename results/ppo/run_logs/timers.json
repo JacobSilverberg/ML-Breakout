@@ -1,0 +1,47 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1657851282",
+        "python_version": "3.7.5 (tags/v3.7.5:5c02a39a0b, Oct 15 2019, 00:11:34) [MSC v.1916 64 bit (AMD64)]",
+        "command_line_arguments": "C:\\Users\\Jared Connor\\PersonalCloud\\CS_467\\ML-Breakout\\.env\\Scripts\\mlagents-learn",
+        "mlagents_version": "0.28.0",
+        "mlagents_envs_version": "0.28.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "1.7.1+cu110",
+        "numpy_version": "1.21.2",
+        "end_time_seconds": "1657851284"
+    },
+    "total": 1.3475836,
+    "count": 1,
+    "self": 0.0043482999999993055,
+    "children": {
+        "run_training.setup": {
+            "total": 0.08118680000000023,
+            "count": 1,
+            "self": 0.08118680000000023
+        },
+        "TrainerController.start_learning": {
+            "total": 1.2620485000000006,
+            "count": 1,
+            "self": 0.00048260000000066583,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 1.2615302000000002,
+                    "count": 1,
+                    "self": 1.2615302000000002
+                },
+                "trainer_threads": {
+                    "total": 7.999999995789153e-07,
+                    "count": 1,
+                    "self": 7.999999995789153e-07
+                },
+                "TrainerController._save_models": {
+                    "total": 3.4900000000170905e-05,
+                    "count": 1,
+                    "self": 3.4900000000170905e-05
+                }
+            }
+        }
+    }
+}
