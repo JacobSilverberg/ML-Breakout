@@ -20,8 +20,8 @@ public class Ball2P_1 : MonoBehaviour
 
     void Launch()
     {
-        //make the ball travel up initially
-        _rigidbody.velocity = Vector3.up * _speed;
+        //make the ball travel down initially
+        _rigidbody.velocity = Vector3.down * _speed;
     }
 
     void FixedUpdate()
