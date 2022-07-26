@@ -1355,22 +1355,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 1597581333}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2b20f6dac4a0eb4ea9e8b382c79efdd, type: 3}
+  m_Script: {fileID: 11500000, guid: f29968d59d613134b947f9a404dd6a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 3216065446569584671, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
-  playerPrefab: {fileID: 5106813669491007435, guid: c7bb4e1ece4b2d34bb82a7c2da4afab0, type: 3}
-  scoreText: {fileID: 914127462}
-  ballsText: {fileID: 1535535317}
-  levelText: {fileID: 1204875885}
-  TotalScoreText: {fileID: 1672233785}
-  panelMenu: {fileID: 97872031}
-  panelPlay: {fileID: 2013546054}
-  panelLevelCompleted: {fileID: 1653965921}
-  panelGameOver: {fileID: 1217038362}
-  levels:
-  - {fileID: 2549799440605508852, guid: 1d56669fd917c43e1b9a4b64bf4a83d6, type: 3}
-  - {fileID: 2549799440605508852, guid: 0be933d9740ed104c8ebe1414a52bc91, type: 3}
+  ballPrefab: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  scoreText: {fileID: 0}
+  ballsText: {fileID: 0}
+  levelText: {fileID: 0}
+  TotalScoreText: {fileID: 0}
+  panelMenu: {fileID: 0}
+  panelPlay: {fileID: 0}
+  panelLevelCompleted: {fileID: 0}
+  panelGameOver: {fileID: 0}
+  levels: []
 --- !u!4 &1597581335
 Transform:
   m_ObjectHideFlags: 0
