@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball2P_2 : MonoBehaviour
+public class Ball2P_2_train : MonoBehaviour
 {
     float _speed = 20f;
     Rigidbody _rigidbody;
@@ -31,7 +31,7 @@ public class Ball2P_2 : MonoBehaviour
 
         if (!_renderer.isVisible)
         {
-            GameManager.Instance.Balls2--;
+            GameManagerTrain.Instance.Balls2--;
             Destroy(gameObject);
         }
     }
