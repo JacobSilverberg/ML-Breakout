@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball2P_2 : MonoBehaviour
+public class Ball_train : MonoBehaviour
 {
     float _speed = 20f;
     Rigidbody _rigidbody;
@@ -20,8 +20,8 @@ public class Ball2P_2 : MonoBehaviour
 
     void Launch()
     {
-        //make the ball travel down initially
-        _rigidbody.velocity = Vector3.down * _speed;
+        //make the ball travel up initially
+        _rigidbody.velocity = Vector3.up * _speed;
     }
 
     void FixedUpdate()
@@ -31,7 +31,7 @@ public class Ball2P_2 : MonoBehaviour
 
         if (!_renderer.isVisible)
         {
-            GameManager.Instance.Balls2--;
+            GameManager.Instance.Balls--;
             Destroy(gameObject);
         }
     }
@@ -41,3 +41,4 @@ public class Ball2P_2 : MonoBehaviour
         _rigidbody.velocity = Vector3.Reflect(_velocity, collision.contacts[0].normal);
     }
 }
+
