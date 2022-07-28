@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 625384727268077193}
   - component: {fileID: 5356326326408688937}
   - component: {fileID: 6116607876646818439}
-  - component: {fileID: 5282314859369700302}
+  - component: {fileID: 6853645161804772377}
   m_Layer: 0
   m_Name: Brick1
   m_TagString: Untagged
@@ -98,7 +98,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5282314859369700302
+--- !u!114 &6853645161804772377
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,10 +107,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8850538246860831246}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a70469f8abe234b0e8e3dd317e3616f2, type: 3}
+  m_Script: {fileID: 11500000, guid: bc5cda64b130a1944b36e1e010ac91ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hits: 1
-  points: 100
-  rotator: {x: 45, y: 0, z: 0}
-  hitMaterial: {fileID: 2100000, guid: 1f64a235ecb6cba47b2d15453166decd, type: 2}
