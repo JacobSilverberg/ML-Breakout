@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ball : MonoBehaviour
+public class Ball_train : MonoBehaviour
 {
-    float _speed = 30f;
+    float _speed = 20f;
     Rigidbody _rigidbody;
     Vector3 _velocity;
     Renderer _renderer;
@@ -21,7 +21,7 @@ public class Ball : MonoBehaviour
     void Launch()
     {
         //make the ball travel up initially
-        _rigidbody.velocity = Vector3.down * _speed;
+        _rigidbody.velocity = Vector3.up * _speed;
     }
 
     void FixedUpdate()

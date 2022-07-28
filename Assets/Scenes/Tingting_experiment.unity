@@ -9284,7 +9284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d4e38226d9c1342b67a8287b0246e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballPrefab: {fileID: 3216065446569584671, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
+  ballPrefab: {fileID: 3216065446569584671, guid: ff2cd75ea97b17c4bb67613068175779, type: 3}
   playerPrefab: {fileID: 5106813669491007435, guid: c7bb4e1ece4b2d34bb82a7c2da4afab0, type: 3}
   scoreText: {fileID: 734896773}
   ballsText: {fileID: 959530879}
@@ -9298,10 +9298,10 @@ MonoBehaviour:
   - {fileID: 8498592003668369862, guid: 6c7f25340781ce54a94db053e0d73ea4, type: 3}
   - {fileID: 1726131878573201032, guid: 8fb76821487b76b47a31379e9385a6be, type: 3}
   middleWall: {fileID: 8597149849051856733, guid: 80359207f5ec4e24ba33bee1d2046958, type: 3}
-  ballPrefab1: {fileID: 93892886403696677, guid: 9e80c37651ac91649b3c194fef8bace5, type: 3}
-  playerPrefab1: {fileID: 4041462955216648569, guid: 3797f4990e4327940833721a9ac85db0, type: 3}
-  ballPrefab2: {fileID: 7078993702183726781, guid: 29904de30ea02e14486fd4a06f436d46, type: 3}
-  playerPrefab2: {fileID: 1300113098214518510, guid: 794f804889170d94192a62626218b4a4, type: 3}
+  ballPrefab1: {fileID: 93892886403696677, guid: dbd4842acbcae3548bf3d3e46cdb1576, type: 3}
+  playerPrefab1: {fileID: 4041462955216648569, guid: 9496f83caf2c61744af1e03902ae6a6f, type: 3}
+  ballPrefab2: {fileID: 7078993702183726781, guid: 5b0160cf12bb7ef499a6d1ba75c4732b, type: 3}
+  playerPrefab2: {fileID: 1300113098214518510, guid: d0ba35478196093449789e966b3b403e, type: 3}
   scoreText1: {fileID: 2058974813}
   ballsText1: {fileID: 1856160028}
   levelText1: {fileID: 118475838}
@@ -9311,11 +9311,11 @@ MonoBehaviour:
   TotalScoreText2_1: {fileID: 185886491}
   TotalScoreText2_2: {fileID: 258957508}
   levels2_1:
-  - {fileID: 4401873340590307411, guid: def456bcd44f97c4096f923db5e3edee, type: 3}
-  - {fileID: 4160800720493704880, guid: 78b2ff24647bc064d9d3fbb9270e765a, type: 3}
+  - {fileID: 4401873340590307411, guid: 2d7e816555d298b4780ab6135c303092, type: 3}
+  - {fileID: 4160800720493704880, guid: 036cc3d7fc981174f84166511d731321, type: 3}
   levels2_2:
-  - {fileID: 1406724070183182601, guid: c8a27885989b3d74c975b7981e8e33a5, type: 3}
-  - {fileID: 5018869284680061019, guid: 1af625036c341ab4fb871797891f37c1, type: 3}
+  - {fileID: 1406724070183182601, guid: 14d8c6bc3d9c6d34dae10c7f9881d965, type: 3}
+  - {fileID: 5018869284680061019, guid: 684fb057ba77187479773dbc27abfa13, type: 3}
   panelMenu2: {fileID: 1512074683}
   panelPlay2: {fileID: 1089822020}
   panelLevelCompleted2_1: {fileID: 1895507957}

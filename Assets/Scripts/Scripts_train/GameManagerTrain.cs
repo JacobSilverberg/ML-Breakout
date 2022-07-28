@@ -273,6 +273,7 @@ public class GameManagerTrain : MonoBehaviour
                 panelMenu2.SetActive(true);
                 break;
             case State.INIT2:
+                Debug.Log("INIT2");
                 // add a timer
                 startTime = Time.time;
                 Debug.Log("Start *time: " + startTime);
@@ -287,8 +288,6 @@ public class GameManagerTrain : MonoBehaviour
                 middleWall.SetActive(true);
                 _player1 = Instantiate(playerPrefab1);
                 _player2 = Instantiate(playerPrefab2);
-                // comment out for training environment
-                //SwitchState(State.LOADLEVEL2);
                 StartCoroutine(SwitchDelay(State.LOADLEVEL2, 0.5f));
                 break;
             case State.RESET2:
@@ -432,7 +431,7 @@ public class GameManagerTrain : MonoBehaviour
             case State.RESET2:
                 break;
             case State.PLAY2:
-                // add a timer
+                // check the time difference
                 if (Time.time - startTime > 600)
                 {
                     Debug.Log("time now: " + Time.time);
@@ -470,7 +469,7 @@ public class GameManagerTrain : MonoBehaviour
                 if (_currentLevel2 != null && _currentLevel2.transform.childCount == 0 && !_isSwitchingState)
                 {
                     // reset current ball position
-                    currentBall2.GetComponent<Rigidbody>().velocity = new Vector3(paddleX, 0f, 0f);
+                    currentBall2.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
                     SwitchState(State.LEVELCOMPLETED2_2);
                 }
                 break;

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public bool EnableTraining;
     public GameObject ballPrefab;
     public GameObject playerPrefab;
     public Text scoreText;
@@ -54,17 +55,21 @@ public class GameManager : MonoBehaviour
     GameObject _player1;
     GameObject _player2;
 
-    public bool levelCompleted;
+    public bool levelCompleted; //for agent script
 
 
     public static GameManager Instance { get; private set; }
 
-    public enum State { MENU, INIT, PLAY, LEVELCOMPLETED, LOADLEVEL, GAMEOVER, MENU2, INIT2, PLAY2, LEVELCOMPLETED2_1, LEVELCOMPLETED2_2, LOADLEVEL2, LOADLEVEL2_1, LOADLEVEL2_2, ELIMINATED1, ELIMINATED2, GAMEOVER2 }
+    public enum State { MENU, INIT, PLAY, LEVELCOMPLETED, LOADLEVEL, GAMEOVER, MENU2, INIT2, PLAY2, RESET2, LEVELCOMPLETED2_1, LEVELCOMPLETED2_2, LOADLEVEL2, LOADLEVEL2_1, LOADLEVEL2_2, ELIMINATED1, ELIMINATED2, GAMEOVER2 }
     State _state;
 
-    GameObject _currentBall;
+    public GameObject currentBall;
     GameObject _currentLevel;
     bool _isSwitchingState;
+
+    // for Enable Training Mode
+    private float paddleX = 18f; //Xvalue of the ball for player 2
+    private float startTime;
 
     private int _score;
 
@@ -74,6 +79,7 @@ public class GameManager : MonoBehaviour
         set
         {
             _score = value;
+            Debug.Log(_score);
             scoreText.text = "SCORE: " + _score;
         }
     }
@@ -206,7 +212,10 @@ public class GameManager : MonoBehaviour
 
     public void SwitchState(State newState, float delay = 0)
     {
-        StartCoroutine(SwitchDelay(newState, delay));
+        if (!_isSwitchingState)
+        {
+            StartCoroutine(SwitchDelay(newState, delay));
+        }
     }
 
     IEnumerator SwitchDelay(State newState, float delay)
@@ -230,18 +239,19 @@ public class GameManager : MonoBehaviour
                 panelMenu2.SetActive(false);
                 break;
             case State.INIT:
-                Cursor.visible = false;
+                Cursor.visible = true;
                 panelPlay.SetActive(true);
                 Score = 0;
                 Level = 0;
                 Balls = 3;
                 _player = Instantiate(playerPrefab);
-                SwitchState(State.LOADLEVEL);
+                Debug.Log("is_switchingState: " + _isSwitchingState);
+                StartCoroutine(SwitchDelay(State.LOADLEVEL, 0.5f));
                 break;
             case State.PLAY:
                 break;
             case State.LEVELCOMPLETED:
-                Destroy(_currentBall);
+                Destroy(currentBall);
                 Destroy(_currentLevel);
                 Level++;
                 panelLevelCompleted.SetActive(true);
@@ -250,10 +260,12 @@ public class GameManager : MonoBehaviour
             case State.LOADLEVEL:
                 if (Level >= levels.Length)
                 {
+                    Debug.Log("yeah");
                     SwitchState(State.GAMEOVER);
                 }
                 else
                 {
+                    Debug.Log("Load Level");
                     _currentLevel = Instantiate(levels[Level]);
                     SwitchState(State.PLAY);
                 }
@@ -273,20 +285,51 @@ public class GameManager : MonoBehaviour
             case State.INIT2:
                 Cursor.visible = true;
                 panelPlay2.SetActive(true);
-                Score1 = 0;
-                Level1 = 0;
-                Balls1 = 3;
-                Score2 = 0;
-                Level2 = 0;
-                Balls2 = 3;
+                if (!EnableTraining)
+                {
+                    Score1 = 0;
+                    Level1 = 0;
+                    Balls1 = 3;
+                    Score2 = 0;
+                    Level2 = 0;
+                    Balls2 = 3;
+                }
+                else
+                {
+                    // add a timer
+                    startTime = Time.time;
+                    //Debug.Log("Start *time: " + startTime);
+                    Score1 = 0;
+                    Level1 = 0;
+                    Balls1 = 1;  //ball count changed for training
+                    Score2 = 0;
+                    Level2 = 0;
+                    Balls2 = 1;  //ball count changed for training
+                }
                 middleWall.SetActive(true);
-                Debug.Log("middle wall");
                 _player1 = Instantiate(playerPrefab1);
                 _player2 = Instantiate(playerPrefab2);
-                SwitchState(State.LOADLEVEL2);
+                StartCoroutine(SwitchDelay(State.LOADLEVEL2, 0.5f)); //for level transition
+                break;
+            case State.RESET2:
+                // add a timer
+                startTime = Time.time;
+                //Debug.Log("Start *time: " + startTime);
+                Cursor.visible = true;
+                panelPlay2.SetActive(true);
+                Score1 = 0;
+                Level1 = 0;
+                Balls1 = 1; //ball count changed for training
+                Score2 = 0;
+                Level2 = 0;
+                Balls2 = 1; //ball count changed for training
+                middleWall.SetActive(true);
+                _player2 = Instantiate(playerPrefab2);
+                StartCoroutine(SwitchDelay(State.LOADLEVEL2, 0.5f));
                 break;
             case State.PLAY2:
                 break;
+            // for human player (left side player)
             case State.LEVELCOMPLETED2_1:
                 Destroy(_currentBall1);
                 Destroy(_currentLevel1);
@@ -294,13 +337,14 @@ public class GameManager : MonoBehaviour
                 panelLevelCompleted2_1.SetActive(true);
                 SwitchState(State.LOADLEVEL2_1, 2f);
                 break;
+            // for AI player (right side player)
             case State.LEVELCOMPLETED2_2:
                 Destroy(currentBall2);
                 Destroy(_currentLevel2);
                 Level2++;
                 levelCompleted = true; // for training reward
                 panelLevelCompleted2_2.SetActive(true);
-                SwitchState(State.LOADLEVEL2_2, 2f);
+                StartCoroutine(SwitchDelay(State.LOADLEVEL2_2, 2f)); //for level transition
                 break;
             case State.LOADLEVEL2:
                 _currentLevel1 = Instantiate(levels2_1[Level1]);
@@ -351,6 +395,10 @@ public class GameManager : MonoBehaviour
                 {
                     panelGameOver2_2.SetActive(true);
                 }
+                if (EnableTraining)
+                {
+                    StartCoroutine(SwitchDelay(State.RESET2, 0.5f));
+                }
                 break;
         }
     }
@@ -366,18 +414,18 @@ public class GameManager : MonoBehaviour
             case State.INIT:
                 break;
             case State.PLAY:
-                if (_currentBall == null)
+                if (currentBall == null)
                 {
                     if (Balls > 0)
                     {
-                        _currentBall = Instantiate(ballPrefab);
+                        currentBall = Instantiate(ballPrefab);
                     }
                     else
                     {
                         SwitchState(State.GAMEOVER);
                     }
                 }
-                if (_currentLevel != null && _currentLevel.transform.childCount == 0 && !_isSwitchingState)
+                if (_currentLevel != null && _currentLevel.transform.childCount == 0)
                 {
                     SwitchState(State.LEVELCOMPLETED);
                 }
@@ -399,6 +447,15 @@ public class GameManager : MonoBehaviour
             case State.INIT2:
                 break;
             case State.PLAY2:
+                if (EnableTraining)
+                {
+                    // check time difference
+                    if (Time.time - startTime > 600)
+                    {
+                        Debug.Log("Out of time: " + Time.time);
+                        SwitchState(State.GAMEOVER2);
+                    }
+                }
                 if (_currentBall1 == null)
                 {
                     if (Balls1 > 0)
@@ -407,7 +464,10 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        SwitchState(State.ELIMINATED1);
+                        if (!EnableTraining)
+                        {
+                            SwitchState(State.ELIMINATED1);
+                        }
                     }
                 }
                 if (currentBall2 == null)
@@ -418,15 +478,27 @@ public class GameManager : MonoBehaviour
                     }
                     else
                     {
-                        SwitchState(State.ELIMINATED2);
+                        if (EnableTraining)
+                        {
+                            SwitchState(State.GAMEOVER2);
+                        }
+                        else
+                        {
+                            SwitchState(State.ELIMINATED2);
+                        }
                     }
                 }
-                if (_currentLevel1 != null && _currentLevel1.transform.childCount == 0 && !_isSwitchingState)
+                if (_currentLevel1 != null && _currentLevel1.transform.childCount == 0)
                 {
                     SwitchState(State.LEVELCOMPLETED2_1);
                 }
-                if (_currentLevel2 != null && _currentLevel2.transform.childCount == 0 && !_isSwitchingState)
+                if (_currentLevel2 != null && _currentLevel2.transform.childCount == 0)
                 {
+                    if (EnableTraining)
+                    {
+                        // reset current ball position
+                        currentBall2.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                    }
                     SwitchState(State.LEVELCOMPLETED2_2);
                 }
                 break;
@@ -481,9 +553,12 @@ public class GameManager : MonoBehaviour
                 PlayerPrefs.SetInt("totalscore2", Score2);
                 TotalScoreText2_1.text = PlayerPrefs.GetInt("totalscore1") + " TO " + PlayerPrefs.GetInt("totalscore2");
                 TotalScoreText2_2.text = PlayerPrefs.GetInt("totalscore1") + " TO " + PlayerPrefs.GetInt("totalscore2");
-                if (Input.anyKeyDown)
+                if (!EnableTraining)
                 {
-                    SwitchState(State.MENU);
+                    if (Input.anyKeyDown)
+                    {
+                        SwitchState(State.MENU);
+                    }
                 }
                 break;
         }
