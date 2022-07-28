@@ -97,6 +97,7 @@ public class GameManager : MonoBehaviour
                 Cursor.visible = true;
                 panelMenu.SetActive(true);
                 break;
+
             case State.INIT:
                 Cursor.visible = false;
                 panelPlay.SetActive(true);
