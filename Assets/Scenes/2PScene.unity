@@ -9007,14 +9007,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c55460795d836f4684e314ae842b2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<<< HEAD:Assets/Scenes/OriginalGame.unity
-  ballPrefab: {fileID: 3216065446569584671, guid: e8202ec8bbbe9514080b84955f1cb63e, type: 3}
-  playerPrefab: {fileID: 5106813669491007435, guid: bf5804c5e66ec0a4b9a37633bd8f5525, type: 3}
-========
   EnableTraining: 0
   ballPrefab: {fileID: 3216065446569584671, guid: 2c84ced905006264fae44f832e78fa67, type: 3}
   playerPrefab: {fileID: 5106813669491007435, guid: c7bb4e1ece4b2d34bb82a7c2da4afab0, type: 3}
->>>>>>>> game_split_screen:Assets/Scenes/2PScene.unity
   scoreText: {fileID: 1154936125}
   ballsText: {fileID: 1883793678}
   levelText: {fileID: 1091442720}
@@ -9024,11 +9019,6 @@ MonoBehaviour:
   panelLevelCompleted: {fileID: 689820355}
   panelGameOver: {fileID: 46560813}
   levels:
-<<<<<<<< HEAD:Assets/Scenes/OriginalGame.unity
-  - {fileID: 2549799440605508852, guid: 1d56669fd917c43e1b9a4b64bf4a83d6, type: 3}
-  - {fileID: 2549799440605508852, guid: 0be933d9740ed104c8ebe1414a52bc91, type: 3}
-  - {fileID: 2549799440605508852, guid: 8d9366cc8721a414ba7a53056150ab1e, type: 3}
-========
   - {fileID: 8498592003668369862, guid: 6c7f25340781ce54a94db053e0d73ea4, type: 3}
   - {fileID: 1726131878573201032, guid: 8fb76821487b76b47a31379e9385a6be, type: 3}
   middleWall: {fileID: 2137069386}
@@ -9061,7 +9051,6 @@ MonoBehaviour:
   currentBall2: {fileID: 0}
   levelCompleted: 0
   currentBall: {fileID: 0}
->>>>>>>> game_split_screen:Assets/Scenes/2PScene.unity
 --- !u!4 &2091852132
 Transform:
   m_ObjectHideFlags: 0
