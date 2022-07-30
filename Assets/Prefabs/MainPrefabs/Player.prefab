@@ -86,20 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5106813669491007409
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5106813669491007435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 213fb20fa52fd4b02802ca34c33ae29f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftwall: {fileID: 0}
-  rightwall: {fileID: 0}
 --- !u!54 &5106813669491007414
 Rigidbody:
   m_ObjectHideFlags: 0
