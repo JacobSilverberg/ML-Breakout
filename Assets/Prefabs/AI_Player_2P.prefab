@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 1300113098214518416}
   - component: {fileID: 1300113098214518419}
   - component: {fileID: 2369450708676048316}
-  - component: {fileID: -4941925977450431597}
+  - component: {fileID: 425257670255381368}
   - component: {fileID: 4195441866589789662}
   - component: {fileID: 8397633175107753045}
+  - component: {fileID: 761810168792778650}
   m_Layer: 0
   m_Name: AI_Player_2P
   m_TagString: Untagged
@@ -118,7 +119,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3256123080762291287, guid: d0ccd6a01837e463a89c5d3b2d3eef6a, type: 3}
---- !u!114 &-4941925977450431597
+--- !u!114 &425257670255381368
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,7 +128,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1300113098214518510}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41a091b64968a4147b6ecd9d34a968cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 8173206e3f0048948b8d38c825eaef52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agentParameters:
@@ -136,7 +137,7 @@ MonoBehaviour:
   MaxStep: 0
   targetTransform: {fileID: 7078993702183726722, guid: 29904de30ea02e14486fd4a06f436d46, type: 3}
   _ballRigidBody: {fileID: 7078993702183726782, guid: 29904de30ea02e14486fd4a06f436d46, type: 3}
-  leftWallTransform: {fileID: 2064058241139057320, guid: 52d27bd0ccb1c4649b8a9e884ff13264, type: 3}
+  leftWallTransform: {fileID: 8597149849051856704, guid: 80359207f5ec4e24ba33bee1d2046958, type: 3}
   rightWallTransform: {fileID: 5099293229062206628, guid: 76502fe5d9f423c43b68482cea716104, type: 3}
 --- !u!114 &4195441866589789662
 MonoBehaviour:
@@ -151,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 6
     NumStackedVectorObservations: 3
     m_ActionSpec:
       m_NumContinuousActions: 1
@@ -160,7 +161,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 4da08097fd8eb53418f94a4ac6742d30, type: 3}
+  m_Model: {fileID: 5022602860645237092, guid: 9b9bb03042b9e31449fe3a0c2d7a4df1, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: FinishLevel
@@ -182,3 +183,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
+--- !u!114 &761810168792778650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300113098214518510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 282f342c2ab144bf38be65d4d0c4e07d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 1522838597096153533, guid: ddf7a93085a28e04e920607e72ad2750, type: 3}
+  m_SensorName: CameraSensor
+  m_Width: 100
+  m_Height: 57
+  m_Grayscale: 0
+  m_ObservationType: 0
+  m_ObservationStacks: 5
+  m_Compression: 1

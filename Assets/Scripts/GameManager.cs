@@ -224,6 +224,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         EndState();
         _state = newState;
+        Debug.Log(newState);
         BeginState(newState);
         _isSwitchingState = false;
     }
@@ -245,7 +246,7 @@ public class GameManager : MonoBehaviour
                 Level = 0;
                 Balls = 3;
                 _player = Instantiate(playerPrefab);
-                Debug.Log("is_switchingState: " + _isSwitchingState);
+                //Debug.Log("is_switchingState: " + _isSwitchingState);
                 StartCoroutine(SwitchDelay(State.LOADLEVEL, 0.5f));
                 break;
             case State.PLAY:
@@ -255,19 +256,18 @@ public class GameManager : MonoBehaviour
                 Destroy(_currentLevel);
                 Level++;
                 panelLevelCompleted.SetActive(true);
-                SwitchState(State.LOADLEVEL, 2f);
+                StartCoroutine(SwitchDelay(State.LOADLEVEL, 2f)); //fix level transition
                 break;
             case State.LOADLEVEL:
                 if (Level >= levels.Length)
                 {
-                    Debug.Log("yeah");
-                    SwitchState(State.GAMEOVER);
+                    StartCoroutine(SwitchDelay(State.GAMEOVER, 0.5f)); //fix level transition
                 }
                 else
                 {
                     Debug.Log("Load Level");
                     _currentLevel = Instantiate(levels[Level]);
-                    SwitchState(State.PLAY);
+                    StartCoroutine(SwitchDelay(State.PLAY, 0.5f)); //fix level transition
                 }
                 break;
             case State.GAMEOVER:
@@ -335,42 +335,46 @@ public class GameManager : MonoBehaviour
                 Destroy(_currentLevel1);
                 Level1++;
                 panelLevelCompleted2_1.SetActive(true);
-                SwitchState(State.LOADLEVEL2_1, 2f);
+                StartCoroutine(SwitchDelay(State.LOADLEVEL2_1, 2f)); //fix level transition 
                 break;
             // for AI player (right side player)
             case State.LEVELCOMPLETED2_2:
+                //Debug.Log("level completed");
                 Destroy(currentBall2);
                 Destroy(_currentLevel2);
                 Level2++;
                 levelCompleted = true; // for training reward
                 panelLevelCompleted2_2.SetActive(true);
+                //StartCoroutine(SwitchDelay(.....));
                 StartCoroutine(SwitchDelay(State.LOADLEVEL2_2, 2f)); //for level transition
                 break;
             case State.LOADLEVEL2:
                 _currentLevel1 = Instantiate(levels2_1[Level1]);
                 _currentLevel2 = Instantiate(levels2_2[Level2]);
-                SwitchState(State.PLAY2);
+                StartCoroutine(SwitchDelay(State.PLAY2, 0.5f));
                 break;
             case State.LOADLEVEL2_1:
                 if (Level1 >= levels2_1.Length)
                 {
-                    SwitchState(State.GAMEOVER2);
+                    StartCoroutine(SwitchDelay(State.GAMEOVER2, 0.5f));
                 }
                 else
                 {
                     _currentLevel1 = Instantiate(levels2_1[Level1]);
-                    SwitchState(State.PLAY2);
+                    StartCoroutine(SwitchDelay(State.PLAY2, 0.5f));
                 }
                 break;
             case State.LOADLEVEL2_2:
+                // add a timer
+                startTime = Time.time;
                 if (Level2 >= levels2_2.Length)
                 {
-                    SwitchState(State.GAMEOVER2);
+                    StartCoroutine(SwitchDelay(State.GAMEOVER2, 0.5f));
                 }
                 else
                 {
                     _currentLevel2 = Instantiate(levels2_2[Level2]);
-                    SwitchState(State.PLAY2);
+                    StartCoroutine(SwitchDelay(State.PLAY2, 0.5f));
                 }
                 break;
             case State.ELIMINATED1:
@@ -447,6 +451,7 @@ public class GameManager : MonoBehaviour
             case State.INIT2:
                 break;
             case State.PLAY2:
+                Debug.Log("child count: " + _currentLevel2.transform.childCount);
                 if (EnableTraining)
                 {
                     // check time difference
@@ -499,6 +504,7 @@ public class GameManager : MonoBehaviour
                         // reset current ball position
                         currentBall2.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
                     }
+                    Debug.Log("is switching state:    " + _isSwitchingState);
                     SwitchState(State.LEVELCOMPLETED2_2);
                 }
                 break;
@@ -513,29 +519,48 @@ public class GameManager : MonoBehaviour
             case State.LOADLEVEL2_2:
                 break;
             case State.ELIMINATED1:
+                //SwitchState(State.PLAY2);
                 /*
                 if (_score2 > _score1)
                 {
                     SwitchState(State.GAMEOVER2);
                 }*/
+                
                 if (currentBall2 == null)
                 {
                     if (Balls2 > 0)
                     {
                         currentBall2 = Instantiate(ballPrefab2);
+
                     }
                     else
                     {
                         SwitchState(State.GAMEOVER2);
                     }
                 }
+                if (_currentLevel1 != null && _currentLevel1.transform.childCount == 0)
+                {
+                    SwitchState(State.LEVELCOMPLETED2_1);
+                }
+                if (_currentLevel2 != null && _currentLevel2.transform.childCount == 0)
+                {
+                    if (EnableTraining)
+                    {
+                        // reset current ball position
+                        currentBall2.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                    }
+                    Debug.Log("is switching state:    " + _isSwitchingState);
+                    SwitchState(State.LEVELCOMPLETED2_2);
+                }
                 break;
             case State.ELIMINATED2:
+                //SwitchState(State.PLAY2);
                 /*
                 if (_score1 > _score2)
                 {
                     SwitchState(State.GAMEOVER2);
                 }*/
+                
                 if (_currentBall1 == null)
                 {
                     if (Balls1 > 0)
@@ -546,6 +571,20 @@ public class GameManager : MonoBehaviour
                     {
                         SwitchState(State.GAMEOVER2);
                     }
+                }
+                if (_currentLevel1 != null && _currentLevel1.transform.childCount == 0)
+                {
+                    SwitchState(State.LEVELCOMPLETED2_1);
+                }
+                if (_currentLevel2 != null && _currentLevel2.transform.childCount == 0)
+                {
+                    if (EnableTraining)
+                    {
+                        // reset current ball position
+                        currentBall2.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                    }
+                    Debug.Log("is switching state:    " + _isSwitchingState);
+                    SwitchState(State.LEVELCOMPLETED2_2);
                 }
                 break;
             case State.GAMEOVER2:
