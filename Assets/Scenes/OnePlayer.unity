@@ -6540,9 +6540,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2091852130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2b20f6dac4a0eb4ea9e8b382c79efdd, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c55460795d836f4684e314ae842b2d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnableTraining: 0
   ballPrefab: {fileID: 3216065446569584671, guid: e8202ec8bbbe9514080b84955f1cb63e, type: 3}
   playerPrefab: {fileID: 5106813669491007435, guid: bf5804c5e66ec0a4b9a37633bd8f5525, type: 3}
   scoreText: {fileID: 1154936125}
@@ -6553,10 +6554,33 @@ MonoBehaviour:
   panelPlay: {fileID: 60466344}
   panelLevelCompleted: {fileID: 689820355}
   panelGameOver: {fileID: 46560813}
-  levels:
-  - {fileID: 2549799440605508852, guid: 1d56669fd917c43e1b9a4b64bf4a83d6, type: 3}
-  - {fileID: 2549799440605508852, guid: 0be933d9740ed104c8ebe1414a52bc91, type: 3}
-  - {fileID: 2549799440605508852, guid: 8d9366cc8721a414ba7a53056150ab1e, type: 3}
+  levels: []
+  middleWall: {fileID: 0}
+  ballPrefab1: {fileID: 0}
+  playerPrefab1: {fileID: 0}
+  ballPrefab2: {fileID: 0}
+  playerPrefab2: {fileID: 0}
+  scoreText1: {fileID: 0}
+  ballsText1: {fileID: 0}
+  levelText1: {fileID: 0}
+  scoreText2: {fileID: 0}
+  ballsText2: {fileID: 0}
+  levelText2: {fileID: 0}
+  TotalScoreText2_1: {fileID: 0}
+  TotalScoreText2_2: {fileID: 0}
+  levels2_1: []
+  levels2_2: []
+  panelMenu2: {fileID: 0}
+  panelPlay2: {fileID: 0}
+  panelLevelCompleted2_1: {fileID: 0}
+  panelLevelCompleted2_2: {fileID: 0}
+  panelEliminated1: {fileID: 0}
+  panelEliminated2: {fileID: 0}
+  panelGameOver2_1: {fileID: 0}
+  panelGameOver2_2: {fileID: 0}
+  currentBall2: {fileID: 0}
+  levelCompleted: 0
+  currentBall: {fileID: 0}
 --- !u!4 &2091852132
 Transform:
   m_ObjectHideFlags: 0

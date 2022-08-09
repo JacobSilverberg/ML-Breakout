@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
     bool _isSwitchingState;
 
     // for Enable Training Mode
-    private float paddleX = 18f; //Xvalue of the ball for player 2
+    //private float paddleX = 18f; //Xvalue of the ball for player 2
     private float startTime;
 
     private int _score;
