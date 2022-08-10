@@ -130,3 +130,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftwall: {fileID: 0}
   rightwall: {fileID: 0}
+  speed1: 35

@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     Rigidbody _rigidbody;
     public GameObject leftwall;
     public GameObject rightwall;
+    private float xValue;
+    public float speed1 = 20f;
 
     void Start()
     {
@@ -17,21 +19,31 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if ((Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 50)).x + 
-        rightwall.transform.localScale.x + transform.localScale.x / 2) > 35)
+        // move with A/D keyboard inputs using Horizontal Input 
+        float xDirection = Input.GetAxis("Horizontal");
+        Vector3 moveDirection = new Vector3(xDirection, 0.0f);
+
+        // Keep in the left wall
+        // paddle position + half wall width + half paddle width
+        xValue = (transform.localPosition + moveDirection * speed1 * Time.deltaTime).x + (-1 * leftwall.transform.localScale.x) + (-1 * transform.localScale.x / 2);
+
+        if (xValue < -35 + 0.5)
         {
-            //Debug.Log(Input.mousePosition.x);
-            Debug.Log("out of right boundary");
+            Debug.Log("Player 1: out of left boundary");
         }
-        else if ((Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 50)).x - 
-        rightwall.transform.localScale.x - transform.localScale.x / 2) < -35)
+        else if (xValue <= 0 - 3.5 && xValue >= -35 + 0.5)
         {
-            //Debug.Log(Input.mousePosition.x);
-            Debug.Log("out of left boundary");
+            transform.localPosition += moveDirection * speed1 * Time.deltaTime;
         }
-        else 
+        //keep in the right wall
+        else if (xValue > 35 - 0.5)
         {
-            _rigidbody.MovePosition(new Vector3(Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, 0, 50)).x, -17, 0));
+            Debug.Log("Player 1: out of right boundary");
         }
+        else
+        { 
+            transform.Translate(x: (speed1 * xDirection) * Time.deltaTime, y: 0f, z: 0f);
+        }
+
     }
 }

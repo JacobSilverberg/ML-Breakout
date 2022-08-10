@@ -58,7 +58,7 @@ public class GameManagerTrain : MonoBehaviour
     GameObject _player2;
 
     private float startTime;
-    private float paddleX = 18f;
+    //private float paddleX = 18f;
 
     
 

@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TrainingEnvironments/SoloTraining.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/TwoPlayerScene.unity
-    guid: 57fa2fdf642a9f342a5da4a1d6b0b786
+    path: Assets/Scenes/TwoPlayer (Main).unity
+    guid: 28a5ceeb9e61f4f4d9da98095d9b1a8f
   m_configObjects: {}
